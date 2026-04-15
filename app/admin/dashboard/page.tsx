@@ -1,45 +1,9 @@
 import Link from "next/link";
-
-const stats = [
-  { label: "total visits",          value: "12,441", sub: "all time" },
-  { label: "blog reads",            value: "3,820",  sub: "all time" },
-  { label: "project interactions",  value: "6,104",  sub: "all time" },
-  { label: "active chats",          value: "77",     sub: "stored"   },
-];
-
-const pageViews = [
-  { page: "/projects/monolith",        referrer: "google.com",   country: "NG", time: "2m ago"  },
-  { page: "/blog/the-acid-philosophy", referrer: "twitter.com",  country: "US", time: "14m ago" },
-  { page: "/blog/crystal-ui",          referrer: "—",            country: "GB", time: "31m ago" },
-  { page: "/",                         referrer: "direct",       country: "NG", time: "45m ago" },
-  { page: "/experience",               referrer: "linkedin.com", country: "DE", time: "1h ago"  },
-  { page: "/projects/yearnings",       referrer: "—",            country: "US", time: "1h ago"  },
-  { page: "/experiments",              referrer: "google.com",   country: "CA", time: "2h ago"  },
-];
+import { getDashboardStats } from "@/lib/services/analytics";
+import { getRecentPageViews } from "@/lib/services/analytics";
+import { getRecentActivity } from "@/lib/services/activity";
 
 type ActivityType = "commit" | "blog_post" | "project_update" | "experiment" | "note";
-
-const activityFeed: { type: ActivityType; title: string; time: string }[] = [
-  { type: "commit",         title: "feat: admin dashboard scaffold",          time: "5m ago"  },
-  { type: "blog_post",      title: 'Draft published: "The Acid Philosophy"',  time: "2h ago"  },
-  { type: "project_update", title: 'Project "Zion" moved to Completed',       time: "6h ago"  },
-  { type: "experiment",     title: "New experiment: crystalline-ui",          time: "1d ago"  },
-  { type: "note",           title: "Unauthorized login attempt blocked",      time: "2d ago"  },
-  { type: "commit",         title: "fix: middleware redirect loop on /admin", time: "2d ago"  },
-  { type: "blog_post",      title: 'Draft saved: "On building slow"',         time: "3d ago"  },
-];
-
-const quickNav = [
-  { label: "projects",       sub: "5 projects",   route: "/admin/projects"       },
-  { label: "experience",     sub: "3 entries",    route: "/admin/experience"     },
-  { label: "experiments",    sub: "12 items",     route: "/admin/experiments"    },
-  { label: "awards",         sub: "8 awards",     route: "/admin/awards"         },
-  { label: "board",          sub: "14 items",     route: "/admin/board"          },
-  { label: "analytics",      sub: "page views",   route: "/admin/analytics"      },
-  { label: "chats",          sub: "77 sessions",  route: "/admin/chats"          },
-  { label: "system context", sub: "6 entries",    route: "/admin/system-context" },
-  { label: "activity",       sub: "203 events",   route: "/admin/activity"       },
-];
 
 const activityColors: Record<ActivityType, string> = {
   commit:         "text-a-green",
@@ -49,20 +13,37 @@ const activityColors: Record<ActivityType, string> = {
   note:           "text-a-ink-3",
 };
 
-const activityIcons: Record<ActivityType, React.ReactNode> = {
-  commit:         <CommitIcon />,
-  blog_post:      <FileIcon />,
-  project_update: <BoxIcon />,
-  experiment:     <FlaskIcon />,
-  note:           <AlertIcon />,
-};
+export default async function DashboardPage() {
+  const [stats, pageViews, activity] = await Promise.all([
+    getDashboardStats(),
+    getRecentPageViews(50),
+    getRecentActivity(10),
+  ]);
 
-export default function DashboardPage() {
+  const statCards = [
+    { label: "total visits",          value: stats.total_visits.toLocaleString(),          sub: "all time" },
+    { label: "blog reads",            value: stats.total_blog_reads.toLocaleString(),       sub: "all time" },
+    { label: "project interactions",  value: stats.total_project_interactions.toLocaleString(), sub: "all time" },
+    { label: "active chats",          value: stats.total_conversations.toLocaleString(),   sub: "stored"   },
+  ];
+
+  const quickNav = [
+    { label: "projects",       sub: `${stats.project_count} projects`,      route: "/admin/projects"       },
+    { label: "experience",     sub: `${stats.experience_count} entries`,     route: "/admin/experience"     },
+    { label: "experiments",    sub: `${stats.experiment_count} items`,       route: "/admin/experiments"    },
+    { label: "awards",         sub: `${stats.award_count} awards`,           route: "/admin/awards"         },
+    { label: "board",          sub: `${stats.board_item_count} items`,       route: "/admin/board"          },
+    { label: "analytics",      sub: "page views",                            route: "/admin/analytics"      },
+    { label: "chats",          sub: `${stats.total_conversations} sessions`, route: "/admin/chats"          },
+    { label: "system context", sub: `${stats.context_entry_count} entries`,  route: "/admin/system-context" },
+    { label: "activity",       sub: `${stats.activity_count} events`,        route: "/admin/activity"       },
+  ];
+
   return (
     <div>
       {/* ── Stats Row ── */}
       <div className="grid grid-cols-4 gap-3 mb-8">
-        {stats.map((s) => (
+        {statCards.map((s) => (
           <div
             key={s.label}
             className="bg-a-card border border-a-border rounded-md px-5 pt-5 pb-4 hover:border-a-border-hov transition-colors duration-150"
@@ -91,33 +72,41 @@ export default function DashboardPage() {
               last 50
             </span>
           </div>
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="bg-a-surface h-8">
-                {["page", "referrer", "country", "time"].map((h) => (
-                  <th
-                    key={h}
-                    className="font-mono text-[9px] uppercase tracking-[0.14em] text-a-ink-4 text-left px-4 font-medium"
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {pageViews.map((row, i) => (
-                <tr
-                  key={i}
-                  className="h-10 border-b border-a-border-sub hover:bg-white/3 transition-colors duration-100"
-                >
-                  <td className="font-mono text-[11px] text-white px-4">{row.page}</td>
-                  <td className="font-mono text-[11px] text-a-ink-3 px-4">{row.referrer}</td>
-                  <td className="font-mono text-[11px] text-a-ink-4 px-4">{row.country}</td>
-                  <td className="font-mono text-[11px] text-a-ink-4 px-4">{row.time}</td>
+          {pageViews.length === 0 ? (
+            <div className="flex items-center justify-center h-[120px]">
+              <p className="font-mono text-[11px] text-a-ink-7">no page views yet.</p>
+            </div>
+          ) : (
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-a-surface h-8">
+                  {["page", "referrer", "country", "time"].map((h) => (
+                    <th
+                      key={h}
+                      className="font-mono text-[9px] uppercase tracking-[0.14em] text-a-ink-4 text-left px-4 font-medium"
+                    >
+                      {h}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {pageViews.map((row, i) => (
+                  <tr
+                    key={i}
+                    className="h-10 border-b border-a-border-sub hover:bg-white/[0.02] transition-colors duration-100"
+                  >
+                    <td className="font-mono text-[11px] text-white px-4">{row.page}</td>
+                    <td className="font-mono text-[11px] text-a-ink-3 px-4">{row.referrer ?? "—"}</td>
+                    <td className="font-mono text-[11px] text-a-ink-4 px-4">{row.country ?? "—"}</td>
+                    <td className="font-mono text-[11px] text-a-ink-4 px-4 whitespace-nowrap">
+                      {new Date(row.visited_at).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
 
         {/* Recent Activity Feed */}
@@ -130,26 +119,35 @@ export default function DashboardPage() {
               last 10
             </span>
           </div>
-          <ul>
-            {activityFeed.map((item, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-3 px-5 py-3.5 border-b border-a-border-sub last:border-b-0 hover:bg-white/3 transition-colors duration-100"
-              >
-                <span className={`mt-0.5 flex-shrink-0 ${activityColors[item.type]}`}>
-                  {activityIcons[item.type]}
-                </span>
-                <div className="min-w-0">
-                  <p className="font-mono text-[11px] text-white truncate mb-0.5">
-                    {item.title}
-                  </p>
-                  <p className="font-mono text-[10px] text-a-ink-4">
-                    {item.type.replace("_", " ")} · {item.time}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          {activity.length === 0 ? (
+            <div className="flex items-center justify-center h-[120px]">
+              <p className="font-mono text-[11px] text-a-ink-7">no activity yet.</p>
+            </div>
+          ) : (
+            <ul>
+              {activity.map((item) => {
+                const type = item.type as ActivityType;
+                return (
+                  <li
+                    key={item.id}
+                    className="flex items-start gap-3 px-5 py-3.5 border-b border-a-border-sub last:border-b-0 hover:bg-white/[0.02] transition-colors duration-100"
+                  >
+                    <span className={`mt-0.5 flex-shrink-0 ${activityColors[type] ?? "text-a-ink-4"}`}>
+                      <ActivityDot />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-mono text-[11px] text-white truncate mb-0.5">
+                        {item.title}
+                      </p>
+                      <p className="font-mono text-[10px] text-a-ink-4">
+                        {item.type.replace(/_/g, " ")} · {formatTimeAgo(item.created_at)}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </div>
 
@@ -167,7 +165,7 @@ export default function DashboardPage() {
               href={card.route}
               className="bg-a-surface border border-a-border rounded-md p-4 hover:bg-a-raised hover:border-a-border-hov transition-colors duration-150 group"
             >
-              <p className="font-mono text-[11px] text-a-ink-2 group-hover:text-white mb-1 transition-colors duration-150">
+              <p className="font-mono text-[11px] text-a-ink-3 group-hover:text-white mb-1 transition-colors duration-150">
                 {card.label}
               </p>
               <p className="font-mono text-[10px] text-a-ink-4">{card.sub}</p>
@@ -179,48 +177,20 @@ export default function DashboardPage() {
   );
 }
 
-/* ── Icons ── */
-function CommitIcon() {
+function ActivityDot() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <circle cx="7" cy="7" r="2.5" stroke="currentColor" strokeWidth="1.1" />
-      <line x1="1" y1="7" x2="4.5" y2="7" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
-      <line x1="9.5" y1="7" x2="13" y2="7" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
+      <circle cx="7" cy="7" r="3" fill="currentColor" opacity="0.6" />
     </svg>
   );
 }
-function FileIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M3 1.5h5.5L11 4v8.5H3V1.5z" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
-      <path d="M8.5 1.5V4H11" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
-    </svg>
-  );
-}
-function BoxIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M7 1L12.5 4v6L7 13 1.5 10V4L7 1z" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
-      <line x1="7" y1="7" x2="7" y2="13" stroke="currentColor" strokeWidth="1.1" />
-      <line x1="1.5" y1="4" x2="7" y2="7" stroke="currentColor" strokeWidth="1.1" />
-      <line x1="12.5" y1="4" x2="7" y2="7" stroke="currentColor" strokeWidth="1.1" />
-    </svg>
-  );
-}
-function FlaskIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M5 1v5L1.5 12a1 1 0 00.9 1.5h9.2a1 1 0 00.9-1.5L9 6V1" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
-      <line x1="4" y1="1" x2="10" y2="1" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
-    </svg>
-  );
-}
-function AlertIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M7 1.5L12.5 11.5H1.5L7 1.5z" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
-      <line x1="7" y1="6" x2="7" y2="8.5" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
-      <circle cx="7" cy="10" r="0.5" fill="currentColor" />
-    </svg>
-  );
+
+function formatTimeAgo(dateStr: string): string {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
 }

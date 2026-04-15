@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logoutAction } from "./login/actions";
+import { TopbarActionsProvider, useTopbarActions } from "./_components/topbar-context";
 
 const navItems = [
   { label: "dashboard",      route: "/admin/dashboard",      icon: <GridIcon /> },
@@ -17,12 +18,16 @@ const navItems = [
   { label: "activity",       route: "/admin/activity",       icon: <ActivityIcon /> },
 ];
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { actions } = useTopbarActions();
 
-  if (pathname === "/admin/login") return <>{children}</>;
+  const activeNav = navItems.find((n) => pathname.startsWith(n.route));
+  const pageLabel = activeNav?.label ?? "admin";
 
-  const pageLabel = navItems.find((n) => n.route === pathname)?.label ?? "admin";
+  // Build breadcrumb from pathname
+  const segments = pathname.replace("/admin/", "").split("/").filter(Boolean);
+  const breadcrumb = ["admin", ...segments];
 
   return (
     <div className="min-h-screen bg-a-base admin-grain">
@@ -44,7 +49,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Nav items */}
         <nav className="flex flex-col flex-1">
           {navItems.map((item, i) => {
-            const isActive = pathname === item.route;
+            const isActive = pathname.startsWith(item.route);
             return (
               <div key={item.route}>
                 {i === 1 && <div className="mx-5 my-2 border-t border-a-border" />}
@@ -83,17 +88,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* ── Top Bar ── */}
       <header className="fixed top-0 left-[220px] right-0 h-[52px] bg-a-base border-b border-a-border z-40 flex items-center justify-between px-8">
         <p className="font-mono text-[12px] font-medium tracking-[0.08em]">
-          <span className="text-a-ink-4">admin / </span>
-          <span className="text-white">{pageLabel}</span>
+          {breadcrumb.map((seg, i) => (
+            <span key={i}>
+              {i > 0 && <span className="text-a-ink-4"> / </span>}
+              <span className={i === breadcrumb.length - 1 ? "text-white" : "text-a-ink-4"}>
+                {seg.replace(/-/g, " ")}
+              </span>
+            </span>
+          ))}
         </p>
-        <form action={logoutAction}>
-          <button
-            type="submit"
-            className="font-mono text-[11px] text-a-ink-3 hover:text-a-red transition-colors duration-150 cursor-pointer bg-transparent border-none"
-          >
-            logout →
-          </button>
-        </form>
+        <div className="flex items-center gap-4">
+          {actions}
+          <form action={logoutAction}>
+            <button
+              type="submit"
+              className="font-mono text-[11px] text-a-ink-3 hover:text-a-red transition-colors duration-150 cursor-pointer bg-transparent border-none"
+            >
+              logout →
+            </button>
+          </form>
+        </div>
       </header>
 
       {/* ── Main Content ── */}
@@ -103,6 +117,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </main>
     </div>
+  );
+}
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  if (pathname === "/admin/login") return <>{children}</>;
+
+  return (
+    <TopbarActionsProvider>
+      <AdminShell>{children}</AdminShell>
+    </TopbarActionsProvider>
   );
 }
 
