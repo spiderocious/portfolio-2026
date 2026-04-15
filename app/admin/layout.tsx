@@ -5,82 +5,39 @@ import { usePathname } from "next/navigation";
 import { logoutAction } from "./login/actions";
 
 const navItems = [
-  {
-    label: "dashboard",
-    route: "/admin/dashboard",
-    icon: <GridIcon />,
-  },
-  {
-    label: "projects",
-    route: "/admin/projects",
-    icon: <FolderIcon />,
-  },
-  {
-    label: "experience",
-    route: "/admin/experience",
-    icon: <BriefcaseIcon />,
-  },
-  {
-    label: "experiments",
-    route: "/admin/experiments",
-    icon: <FlaskIcon />,
-  },
-  {
-    label: "awards",
-    route: "/admin/awards",
-    icon: <AwardIcon />,
-  },
-  {
-    label: "board",
-    route: "/admin/board",
-    icon: <KanbanIcon />,
-  },
-  {
-    label: "analytics",
-    route: "/admin/analytics",
-    icon: <ChartIcon />,
-  },
-  {
-    label: "chats",
-    route: "/admin/chats",
-    icon: <MessageIcon />,
-  },
-  {
-    label: "system context",
-    route: "/admin/system-context",
-    icon: <CpuIcon />,
-  },
-  {
-    label: "activity",
-    route: "/admin/activity",
-    icon: <ActivityIcon />,
-  },
+  { label: "dashboard",      route: "/admin/dashboard",      icon: <GridIcon /> },
+  { label: "projects",       route: "/admin/projects",       icon: <FolderIcon /> },
+  { label: "experience",     route: "/admin/experience",     icon: <BriefcaseIcon /> },
+  { label: "experiments",    route: "/admin/experiments",    icon: <FlaskIcon /> },
+  { label: "awards",         route: "/admin/awards",         icon: <AwardIcon /> },
+  { label: "board",          route: "/admin/board",          icon: <KanbanIcon /> },
+  { label: "analytics",      route: "/admin/analytics",      icon: <ChartIcon /> },
+  { label: "chats",          route: "/admin/chats",          icon: <MessageIcon /> },
+  { label: "system context", route: "/admin/system-context", icon: <CpuIcon /> },
+  { label: "activity",       route: "/admin/activity",       icon: <ActivityIcon /> },
 ];
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Don't render the shell on the login page
   if (pathname === "/admin/login") return <>{children}</>;
 
   const pageLabel = navItems.find((n) => n.route === pathname)?.label ?? "admin";
 
   return (
-    <div className="min-h-screen bg-a-base admin-grain flex">
+    <div className="min-h-screen bg-a-base admin-grain">
+
       {/* ── Sidebar ── */}
       <aside className="fixed top-0 left-0 h-screen w-[220px] bg-a-surface border-r border-a-border z-50 flex flex-col overflow-y-auto">
+
         {/* Identity */}
-        <div className="px-5 pt-6 pb-6 border-b border-a-border-sub">
-          <p className="font-mono text-[11px] text-a-green mb-0.5">feranmi@admin</p>
-          <p className="font-mono text-[10px] text-a-ink-8 uppercase tracking-[0.1em]">admin panel</p>
+        <div className="px-5 pt-6 pb-5 border-b border-a-border">
+          <p className="font-mono text-[11px] text-a-green mb-1">feranmi@admin</p>
+          <p className="font-mono text-[10px] text-a-ink-4 uppercase tracking-[0.1em]">admin panel</p>
         </div>
 
-        {/* Nav label */}
-        <p className="font-mono text-[9px] text-a-ink-8 uppercase tracking-[0.18em] px-5 pt-4 pb-2">
+        {/* Nav section label */}
+        <p className="font-mono text-[9px] text-a-ink-5 uppercase tracking-[0.18em] px-5 pt-4 pb-2">
           navigation
         </p>
 
@@ -90,19 +47,17 @@ export default function AdminLayout({
             const isActive = pathname === item.route;
             return (
               <div key={item.route}>
-                {i === 1 && (
-                  <div className="mx-5 my-2 border-t border-a-border-sub" />
-                )}
+                {i === 1 && <div className="mx-5 my-2 border-t border-a-border" />}
                 <Link
                   href={item.route}
                   className={[
                     "flex items-center gap-2.5 h-9 px-5 border-l-2 transition-colors duration-150",
                     isActive
-                      ? "border-l-a-ink bg-white/[0.05] text-a-ink"
-                      : "border-l-transparent text-a-ink-5 hover:bg-white/[0.03] hover:border-l-a-ink-8 hover:text-a-ink-4",
+                      ? "border-l-white bg-white/[0.06] text-white"
+                      : "border-l-transparent text-a-ink-3 hover:bg-white/[0.03] hover:border-l-a-ink-5 hover:text-a-ink-2",
                   ].join(" ")}
                 >
-                  <span className={isActive ? "text-a-ink" : "text-a-ink-7 group-hover:text-a-ink-5"}>
+                  <span className={isActive ? "text-white" : "text-a-ink-4"}>
                     {item.icon}
                   </span>
                   <span className="font-mono text-[12px] font-medium capitalize">
@@ -115,10 +70,10 @@ export default function AdminLayout({
         </nav>
 
         {/* Back to site */}
-        <div className="border-t border-a-border-sub px-5 py-4">
+        <div className="border-t border-a-border px-5 py-4">
           <Link
             href="/"
-            className="font-mono text-[11px] text-a-ink-7 hover:text-a-ink-4 transition-colors duration-150"
+            className="font-mono text-[11px] text-a-ink-4 hover:text-a-ink-2 transition-colors duration-150"
           >
             ← back to site
           </Link>
@@ -126,15 +81,15 @@ export default function AdminLayout({
       </aside>
 
       {/* ── Top Bar ── */}
-      <header className="fixed top-0 left-[220px] right-0 h-[52px] bg-a-base border-b border-a-border-sub z-40 flex items-center justify-between px-8">
+      <header className="fixed top-0 left-[220px] right-0 h-[52px] bg-a-base border-b border-a-border z-40 flex items-center justify-between px-8">
         <p className="font-mono text-[12px] font-medium tracking-[0.08em]">
-          <span className="text-a-ink-8">admin / </span>
-          <span className="text-a-ink-4">{pageLabel}</span>
+          <span className="text-a-ink-4">admin / </span>
+          <span className="text-white">{pageLabel}</span>
         </p>
         <form action={logoutAction}>
           <button
             type="submit"
-            className="font-mono text-[11px] text-a-ink-7 hover:text-a-red transition-colors duration-150 cursor-pointer bg-transparent border-none"
+            className="font-mono text-[11px] text-a-ink-3 hover:text-a-red transition-colors duration-150 cursor-pointer bg-transparent border-none"
           >
             logout →
           </button>
@@ -142,8 +97,10 @@ export default function AdminLayout({
       </header>
 
       {/* ── Main Content ── */}
-      <main className="ml-[220px] mt-[52px] flex-1 min-h-[calc(100vh-52px)] p-8 overflow-y-auto">
-        {children}
+      <main className="pl-[220px] pt-[52px] min-h-screen">
+        <div className="p-8">
+          {children}
+        </div>
       </main>
     </div>
   );
@@ -160,7 +117,6 @@ function GridIcon() {
     </svg>
   );
 }
-
 function FolderIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -168,7 +124,6 @@ function FolderIcon() {
     </svg>
   );
 }
-
 function BriefcaseIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -178,7 +133,6 @@ function BriefcaseIcon() {
     </svg>
   );
 }
-
 function FlaskIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -187,7 +141,6 @@ function FlaskIcon() {
     </svg>
   );
 }
-
 function AwardIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -196,7 +149,6 @@ function AwardIcon() {
     </svg>
   );
 }
-
 function KanbanIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -206,7 +158,6 @@ function KanbanIcon() {
     </svg>
   );
 }
-
 function ChartIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -218,7 +169,6 @@ function ChartIcon() {
     </svg>
   );
 }
-
 function MessageIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -226,7 +176,6 @@ function MessageIcon() {
     </svg>
   );
 }
-
 function CpuIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -243,7 +192,6 @@ function CpuIcon() {
     </svg>
   );
 }
-
 function ActivityIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
