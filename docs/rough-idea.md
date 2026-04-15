@@ -1,0 +1,7 @@
+- New portfolio design will have
+    - landing page
+    - about
+    - projects
+    - experience
+    - blog
+    - experiments

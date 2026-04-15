@@ -1,0 +1,9 @@
+- rough idea sketch rough-idea.md
+- build up ideas idea.md
+- tech stack, plans, possible options
+- identify mvp features
+- tech doc and modelling (data modelling, architecture, api routes, tech doc)
+- light coding and setups
+- complete mvp
+- launch, deploy
+- iterate and add more features, improve design, etc.
