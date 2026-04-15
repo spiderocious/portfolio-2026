@@ -1,0 +1,232 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────────────── */
+:root {
+  /* Light mode */
+  --bg:           #F5F0E8;
+  --bg-alt:       #EDE8DF;
+  --bg-raised:    #FDFAF5;
+  --surface:      #FFFFFF;
+  --border:       #D8D0C4;
+  --border-soft:  #E8E2D8;
+
+  --ink:          #1A1714;
+  --ink-2:        #3D3830;
+  --ink-3:        #6B6560;
+  --ink-4:        #9C9690;
+
+  --accent:       #1A1714;
+  --accent-warm:  #8B4513;
+  --tag-bg:       #E8E2D8;
+  --tag-text:     #3D3830;
+
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-body:    "Instrument Sans", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", "Courier New", monospace;
+
+  /* Grain overlay strength */
+  --grain-opacity: 0.035;
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg:           #0F0E0C;
+  --bg-alt:       #161410;
+  --bg-raised:    #1C1A17;
+  --surface:      #232018;
+  --border:       #2E2B26;
+  --border-soft:  #252320;
+
+  --ink:          #F0EBE3;
+  --ink-2:        #C8C2B8;
+  --ink-3:        #8A8278;
+  --ink-4:        #5A5450;
+
+  --accent:       #F0EBE3;
+  --accent-warm:  #C87941;
+  --tag-bg:       #252320;
+  --tag-text:     #C8C2B8;
+
+  --grain-opacity: 0.06;
+
+  color-scheme: dark;
+}
+
+/* ─── Base Reset ─────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ─── Grain Texture ──────────────────────────────────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* ─── Typography Scale ───────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-4); }
+
+/* ─── Selection ──────────────────────────────────────────────────────── */
+::selection {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* ─── Admin Utilities ────────────────────────────────────────────────── */
+.admin-grain {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+}
+
+.admin-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--color-a-surface);
+  border: 1px solid #222222;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-a-ink-2);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.admin-input::placeholder {
+  color: var(--color-a-ink-6);
+}
+.admin-input:focus {
+  border-color: var(--color-a-border-act);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.04);
+}
+.admin-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-btn-primary {
+  width: 100%;
+  height: 44px;
+  background: var(--color-a-btn);
+  color: var(--color-a-base);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 150ms ease, transform 100ms ease;
+}
+.admin-btn-primary:hover:not(:disabled) {
+  background: var(--color-a-btn-hov);
+}
+.admin-btn-primary:active:not(:disabled) {
+  transform: scale(0.99);
+  background: var(--color-a-btn-act);
+}
+.admin-btn-primary:disabled {
+  background: var(--color-a-btn-dis);
+  cursor: not-allowed;
+}
+
+@keyframes cursor-blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ─── Tailwind theme extension (v4 CSS-first) ────────────────────────── */
+@theme {
+  --font-display:  "DM Serif Display", Georgia, serif;
+  --font-body:     "Instrument Sans", system-ui, sans-serif;
+  --font-mono:     "JetBrains Mono", "Courier New", monospace;
+
+  /* Public site tokens */
+  --color-bg:          var(--bg);
+  --color-bg-alt:      var(--bg-alt);
+  --color-bg-raised:   var(--bg-raised);
+  --color-surface:     var(--surface);
+  --color-border:      var(--border);
+  --color-border-soft: var(--border-soft);
+  --color-ink:         var(--ink);
+  --color-ink-2:       var(--ink-2);
+  --color-ink-3:       var(--ink-3);
+  --color-ink-4:       var(--ink-4);
+  --color-accent:      var(--accent);
+  --color-accent-warm: var(--accent-warm);
+  --color-tag-bg:      var(--tag-bg);
+  --color-tag-text:    var(--tag-text);
+
+  /* Admin font shorthands */
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-mono:    "JetBrains Mono", "Courier New", monospace;
+
+  /* Admin dark palette — fixed, never theme-switched */
+  --color-a-base:        #0f0f0f;
+  --color-a-surface:     #111111;
+  --color-a-card:        #141414;
+  --color-a-raised:      #161616;
+  --color-a-border-sub:  #1a1a1a;
+  --color-a-border:      #1e1e1e;
+  --color-a-border-hov:  #2a2a2a;
+  --color-a-border-act:  #3a3a3a;
+  --color-a-ink:         #f0ece4;
+  --color-a-ink-2:       #d4d0c8;
+  --color-a-ink-3:       #c8c0b8;
+  --color-a-ink-4:       #888888;
+  --color-a-ink-5:       #666666;
+  --color-a-ink-6:       #555555;
+  --color-a-ink-7:       #444444;
+  --color-a-ink-8:       #333333;
+  --color-a-green:       #4ade80;
+  --color-a-red:         #f87171;
+  --color-a-blue:        #60a5fa;
+  --color-a-purple:      #a78bfa;
+  --color-a-orange:      #fb923c;
+  --color-a-yellow:      #facc15;
+  --color-a-btn:         #f0ece4;
+  --color-a-btn-hov:     #ffffff;
+  --color-a-btn-act:     #e0dcd4;
+  --color-a-btn-dis:     #c8c4bc;
+}

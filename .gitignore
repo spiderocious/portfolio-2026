@@ -1,0 +1,6 @@
+node_modules
+.next
+/sample-design
+.env.local
+.env
+.env*.local

@@ -621,51 +621,45 @@ The admin panel lives at `/admin/*`. All routes are protected — only accessibl
 
 ## 8. Folder Structure
 
+Code is organized using **Feature-Sliced Design (FSD)**. Admin sections are features under `features/admin/features/[section]/`, each self-contained with its own `screen/`, `parts/`, `api/`, `providers/`, `guards/`, `widgets/`.
+
 ```
 portfolio-v2/
-├── app/
-│   ├── page.tsx                          # Landing
+├── app/                                  # Next.js App Router (routing only — thin wrappers)
+│   ├── page.tsx                          # → renders public landing feature
 │   ├── about/page.tsx
-│   ├── projects/
-│   │   ├── page.tsx
-│   │   └── [slug]/page.tsx
+│   ├── projects/page.tsx
+│   ├── projects/[slug]/page.tsx
 │   ├── experience/page.tsx
-│   ├── blog/
-│   │   ├── page.tsx
-│   │   └── [slug]/page.tsx
-│   ├── experiments/
-│   │   ├── page.tsx
-│   │   └── [slug]/page.tsx
+│   ├── blog/page.tsx
+│   ├── blog/[slug]/page.tsx
+│   ├── experiments/page.tsx
+│   ├── experiments/[slug]/page.tsx
 │   ├── awards/page.tsx
 │   ├── board/page.tsx
 │   ├── admin/
+│   │   ├── layout.tsx                    # Admin shell (sidebar + topbar)
 │   │   ├── login/page.tsx
-│   │   ├── page.tsx                      # Dashboard
-│   │   ├── projects/
-│   │   │   ├── page.tsx
-│   │   │   ├── new/page.tsx
-│   │   │   └── [id]/page.tsx
-│   │   ├── experience/
-│   │   │   ├── page.tsx
-│   │   │   ├── new/page.tsx
-│   │   │   └── [id]/page.tsx
-│   │   ├── experiments/
-│   │   │   ├── page.tsx
-│   │   │   ├── new/page.tsx
-│   │   │   └── [id]/page.tsx
-│   │   ├── awards/
-│   │   │   ├── page.tsx
-│   │   │   ├── new/page.tsx
-│   │   │   └── [id]/page.tsx
+│   │   ├── page.tsx                      # → DashboardScreen
+│   │   ├── projects/page.tsx             # → ProjectsScreen
+│   │   ├── projects/new/page.tsx         # → CreateProjectScreen
+│   │   ├── projects/[id]/page.tsx        # → EditProjectScreen
+│   │   ├── experience/page.tsx
+│   │   ├── experience/new/page.tsx
+│   │   ├── experience/[id]/page.tsx
+│   │   ├── experiments/page.tsx
+│   │   ├── experiments/new/page.tsx
+│   │   ├── experiments/[id]/page.tsx
+│   │   ├── awards/page.tsx
+│   │   ├── awards/new/page.tsx
+│   │   ├── awards/[id]/page.tsx
 │   │   ├── board/page.tsx
 │   │   ├── analytics/page.tsx
-│   │   ├── chats/
-│   │   │   ├── page.tsx
-│   │   │   └── [id]/page.tsx
-│   │   └── system-context/
-│   │       ├── page.tsx
-│   │       ├── new/page.tsx
-│   │       └── [id]/page.tsx
+│   │   ├── chats/page.tsx
+│   │   ├── chats/[id]/page.tsx
+│   │   ├── system-context/page.tsx
+│   │   ├── system-context/new/page.tsx
+│   │   └── system-context/[id]/page.tsx
 │   └── api/
 │       ├── analytics/route.ts
 │       ├── stats/route.ts
@@ -675,98 +669,161 @@ portfolio-v2/
 │       ├── blog/route.ts
 │       ├── webhooks/github/route.ts
 │       └── admin/
-│           ├── projects/
-│           │   ├── route.ts
-│           │   └── [id]/route.ts
-│           ├── experience/
-│           │   ├── route.ts
-│           │   └── [id]/route.ts
-│           ├── experiments/
-│           │   ├── route.ts
-│           │   └── [id]/route.ts
-│           ├── awards/
-│           │   ├── route.ts
-│           │   └── [id]/route.ts
-│           ├── board/
-│           │   ├── route.ts
-│           │   ├── [id]/route.ts
-│           │   └── [id]/sub-items/
-│           │       ├── route.ts
-│           │       └── [subId]/route.ts
+│           ├── projects/route.ts
+│           ├── projects/[id]/route.ts
+│           ├── experience/route.ts
+│           ├── experience/[id]/route.ts
+│           ├── experiments/route.ts
+│           ├── experiments/[id]/route.ts
+│           ├── awards/route.ts
+│           ├── awards/[id]/route.ts
+│           ├── board/route.ts
+│           ├── board/[id]/route.ts
+│           ├── board/[id]/sub-items/route.ts
+│           ├── board/[id]/sub-items/[subId]/route.ts
 │           ├── analytics/route.ts
-│           ├── chats/
-│           │   ├── route.ts
-│           │   └── [id]/route.ts
+│           ├── chats/route.ts
+│           ├── chats/[id]/route.ts
 │           ├── activity/route.ts
-│           └── system-context/
-│               ├── route.ts
-│               └── [id]/route.ts
-├── components/
-│   ├── hero.tsx
-│   ├── skill-grid.tsx
-│   ├── timeline.tsx
-│   ├── project-card.tsx
-│   ├── project-live-data.tsx
-│   ├── experiment-card.tsx
-│   ├── experience-timeline.tsx
-│   ├── experience-item.tsx
-│   ├── award-item.tsx
-│   ├── activity-feed.tsx
-│   ├── activity-item.tsx
-│   ├── liveworks-widget.tsx
-│   ├── stats-bar.tsx
-│   ├── markdown-renderer.tsx
-│   ├── board/
-│   │   ├── kanban-board.tsx
-│   │   ├── board-column.tsx
-│   │   ├── board-card.tsx
-│   │   └── board-card-detail.tsx
-│   ├── llm-popup/
-│   │   ├── llm-popup.tsx
-│   │   ├── chat-view.tsx
-│   │   └── chat-input.tsx
-│   └── admin/
-│       ├── stats-cards.tsx
-│       ├── recent-views-table.tsx
-│       ├── recent-activity-list.tsx
-│       ├── markdown-editor.tsx
-│       ├── links-editor.tsx
-│       ├── live-data-editor.tsx
-│       ├── project-form.tsx
-│       ├── experience-form.tsx
-│       ├── experiment-form.tsx
-│       ├── award-form.tsx
-│       ├── chat-thread.tsx
-│       ├── system-context-form.tsx
-│       ├── system-prompt-preview.tsx
+│           ├── system-context/route.ts
+│           └── system-context/[id]/route.ts
+│
+├── features/                             # FSD — all business logic lives here
+│   ├── admin/
+│   │   ├── shared/                       # Cross-feature admin utilities
+│   │   │   ├── guards/
+│   │   │   │   └── admin-auth-guard.tsx
+│   │   │   ├── utils/
+│   │   │   │   └── use-admin-query.ts
+│   │   │   └── helpers/
+│   │   │       ├── format-date.ts
+│   │   │       └── slugify.ts
+│   │   ├── ui/                           # Reusable admin UI components
+│   │   │   ├── sidebar/
+│   │   │   ├── topbar/
+│   │   │   ├── markdown-editor/
+│   │   │   ├── links-editor/
+│   │   │   ├── live-data-editor/
+│   │   │   ├── image-upload/
+│   │   │   ├── tags-input/
+│   │   │   ├── confirm-dialog/
+│   │   │   └── data-table/
+│   │   └── features/
+│   │       ├── dashboard/
+│   │       │   ├── api/
+│   │       │   │   └── use-admin-stats.ts
+│   │       │   └── screen/
+│   │       │       ├── parts/
+│   │       │       │   ├── stats-cards.tsx
+│   │       │       │   ├── recent-views-table.tsx
+│   │       │       │   └── recent-activity-list.tsx
+│   │       │       └── dashboard-screen.tsx
+│   │       ├── projects/
+│   │       │   ├── api/
+│   │       │   │   ├── use-projects.ts
+│   │       │   │   ├── use-project.ts
+│   │       │   │   ├── use-create-project.ts
+│   │       │   │   └── use-update-project.ts
+│   │       │   ├── screen/
+│   │       │   │   ├── parts/
+│   │       │   │   │   ├── projects-table.tsx
+│   │       │   │   │   └── project-form.tsx
+│   │       │   │   └── projects-screen.tsx
+│   │       │   └── features/
+│   │       │       ├── create-project/screen/create-project-screen.tsx
+│   │       │       └── edit-project/screen/edit-project-screen.tsx
+│   │       ├── experience/   # same pattern
+│   │       ├── experiments/  # same pattern
+│   │       ├── awards/       # same pattern
+│   │       ├── board/
+│   │       │   ├── api/
+│   │       │   ├── providers/
+│   │       │   │   └── board-provider.tsx
+│   │       │   └── screen/
+│   │       │       ├── parts/
+│   │       │       │   ├── board-kanban.tsx
+│   │       │       │   ├── board-card.tsx
+│   │       │       │   ├── board-card-detail.tsx
+│   │       │       │   ├── board-item-form.tsx
+│   │       │       │   └── sub-item-form.tsx
+│   │       │       └── board-screen.tsx
+│   │       ├── analytics/
+│   │       │   ├── api/
+│   │       │   └── screen/
+│   │       │       ├── parts/
+│   │       │       │   ├── page-views-chart.tsx
+│   │       │       │   ├── top-pages-table.tsx
+│   │       │       │   ├── project-interactions-table.tsx
+│   │       │       │   └── blog-reads-table.tsx
+│   │       │       └── analytics-screen.tsx
+│   │       ├── chats/
+│   │       │   ├── api/
+│   │       │   ├── screen/
+│   │       │   │   ├── parts/conversations-table.tsx
+│   │       │   │   └── chats-screen.tsx
+│   │       │   └── features/
+│   │       │       └── conversation-detail/
+│   │       │           └── screen/
+│   │       │               ├── parts/message-thread.tsx
+│   │       │               └── conversation-detail-screen.tsx
+│   │       ├── system-context/
+│   │       │   ├── api/
+│   │       │   ├── screen/
+│   │       │   │   ├── parts/
+│   │       │   │   │   ├── context-entries-table.tsx
+│   │       │   │   │   └── assembled-prompt-preview.tsx
+│   │       │   │   └── system-context-screen.tsx
+│   │       │   └── features/
+│   │       │       ├── create-entry/screen/
+│   │       │       └── edit-entry/screen/
+│   │       └── activity/
+│   │           ├── api/
+│   │           └── screen/
+│   │               ├── parts/
+│   │               │   ├── activity-list.tsx
+│   │               │   └── activity-form.tsx
+│   │               └── activity-screen.tsx
+│   └── public/                           # Public site features (same FSD pattern)
+│       ├── landing/
+│       ├── projects/
+│       ├── experience/
+│       ├── blog/
+│       ├── experiments/
+│       ├── awards/
 │       ├── board/
-│       │   ├── admin-kanban.tsx
-│       │   ├── board-item-form.tsx
-│       │   └── sub-item-form.tsx
-│       └── analytics/
-│           ├── page-views-chart.tsx
-│           ├── top-pages-table.tsx
-│           ├── project-interactions-table.tsx
-│           └── blog-reads-table.tsx
+│       └── llm-popup/
+│
+├── shared/                               # Cross-feature, cross-concern
+│   ├── constants/
+│   │   └── routes.ts
+│   ├── utils/
+│   │   └── use-page-view.ts
+│   └── helpers/
+│
+├── ui/                                   # Pure UI components (no business logic)
+│   ├── markdown-renderer/
+│   ├── theme-toggle/
+│   └── icons/
+│
 ├── lib/
 │   ├── supabase.ts                       # Supabase client (server + browser)
 │   ├── supabase-storage.ts               # Storage upload helpers (images → buckets)
 │   ├── hashnode.ts                       # Hashnode GraphQL client + typed queries
-│   └── openai.ts                         # OpenAI client (no hardcoded prompt — assembled from DB)
-├── hooks/
-│   ├── use-page-view.ts
-│   └── use-llm-chat.ts
+│   └── openai.ts                         # OpenAI client (prompt assembled from DB at runtime)
+│
 ├── middleware.ts                          # Auth guard for /admin/*
 ├── data/
-│   └── about.ts                          # Static bio, skills, timeline
-├── tech-doc/
-│   ├── tech-doc.md
-│   └── data-model.md
+│   └── about.ts                          # Static bio, skills, personal timeline
 └── docs/
     ├── rough-idea.md
     ├── idea.md
     ├── how-i-build.md
-    └── mvp.md
+    ├── mvp.md
+    ├── tech-doc/
+    │   ├── tech-doc.md
+    │   └── data-model.md
+    └── todos/
+        └── admin-pages.md
 ```
 
 ---
