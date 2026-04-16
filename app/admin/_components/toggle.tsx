@@ -24,7 +24,7 @@ export function Toggle({ checked, onChange, size = "md" }: ToggleProps) {
         "relative inline-flex items-center rounded-full transition-colors duration-200 focus:outline-none flex-shrink-0",
         trackW,
         trackH,
-        checked ? "bg-a-green" : "bg-a-border-hov",
+        checked ? "bg-[#4ade80]" : "bg-[#f4f4f4] border border-[#d0d0d0]",
       ].join(" ")}
     >
       <span
@@ -32,7 +32,7 @@ export function Toggle({ checked, onChange, size = "md" }: ToggleProps) {
           "inline-block rounded-full transition-transform duration-200",
           thumbSize,
           thumbTranslate,
-          checked ? "bg-white" : "bg-a-ink-6",
+          checked ? "bg-white" : "bg-[#888]",
         ].join(" ")}
       />
     </button>

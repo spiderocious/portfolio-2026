@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { MarkdownEditor } from "../../_components/markdown-editor";
 import { ImageUpload } from "../../_components/image-upload";
 import { FormActionBar } from "../../_components/form-action-bar";
+import { FieldLabel, FieldHint } from "../../_components/field-label";
+import { inputCls } from "../../_components/input-cls";
+import { SectionLabel } from "../../_components/section-label";
 import { uploadCompanyLogo } from "@/lib/services/storage";
 import type { Experience } from "@/lib/services/types";
 
@@ -40,89 +43,82 @@ export function ExperienceForm({ experience, onSubmit }: ExperienceFormProps) {
     fd.set("description", description);
     fd.set("achievements", achievements);
     fd.set("logo_url", logoUrl ?? "");
-
-    startTransition(async () => {
-      await onSubmit(fd);
-    });
+    startTransition(async () => { await onSubmit(fd); });
   }
-
-  const sectionLabel = "font-mono text-[9px] uppercase tracking-[0.18em] text-a-ink-8 mt-8 mb-3 pb-2 border-b border-a-border-sub";
-  const fieldLabel = "font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-a-ink-6 mb-1.5 block";
-  const inputCls = "w-full h-11 bg-a-surface border border-[#222222] rounded px-3.5 font-mono text-[13px] text-a-ink-2 placeholder:text-a-ink-8 outline-none focus:border-a-border-act focus:[box-shadow:0_0_0_2px_rgba(255,255,255,0.04)] transition-all duration-150";
 
   return (
     <form onSubmit={handleFormSubmit} className="max-w-[720px]">
-      <div className={sectionLabel}>role & company</div>
+      <SectionLabel>role & company</SectionLabel>
 
-      <div className="mb-4">
-        <label className={fieldLabel}>role</label>
-        <input type="text" value={role} onChange={(e) => setRole(e.target.value)} placeholder="Senior Frontend Engineer" required className={inputCls} />
+      <div className="flex flex-col gap-4">
+        <div>
+          <FieldLabel>role</FieldLabel>
+          <input type="text" value={role} onChange={(e) => setRole(e.target.value)} placeholder="Senior Frontend Engineer" required className={inputCls} />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <FieldLabel>company</FieldLabel>
+            <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Acme Corp" required className={inputCls} />
+          </div>
+          <div>
+            <FieldLabel>company url</FieldLabel>
+            <input type="url" value={companyUrl} onChange={(e) => setCompanyUrl(e.target.value)} placeholder="https://acme.com" className={inputCls} />
+          </div>
+        </div>
+
+        <div>
+          <FieldLabel>location</FieldLabel>
+          <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Lagos, Nigeria · Remote" className={inputCls} />
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label className={fieldLabel}>company</label>
-          <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Acme Corp" required className={inputCls} />
-        </div>
-        <div>
-          <label className={fieldLabel}>company url</label>
-          <input type="url" value={companyUrl} onChange={(e) => setCompanyUrl(e.target.value)} placeholder="https://acme.com" className={inputCls} />
-        </div>
-      </div>
+      <SectionLabel>dates</SectionLabel>
 
-      <div className="mb-4">
-        <label className={fieldLabel}>location</label>
-        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Lagos, Nigeria · Remote" className={inputCls} />
-      </div>
-
-      <div className={sectionLabel}>dates</div>
-
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label className={fieldLabel}>start date</label>
-          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} required className={inputCls} />
-        </div>
-        <div>
-          <label className={fieldLabel}>end date</label>
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            disabled={currentlyHere}
-            className={[inputCls, currentlyHere ? "opacity-30 pointer-events-none" : ""].join(" ")}
-          />
-          <div className="flex items-center gap-2 mt-2">
+      <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <FieldLabel>start date</FieldLabel>
+            <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} required className={inputCls} />
+          </div>
+          <div>
+            <FieldLabel>end date</FieldLabel>
             <input
-              type="checkbox"
-              id="currently_here"
-              checked={currentlyHere}
-              onChange={(e) => setCurrentlyHere(e.target.checked)}
-              className="w-4 h-4 border border-[#2a2a2a] bg-a-surface rounded accent-a-green cursor-pointer"
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              disabled={currentlyHere}
+              className={[inputCls, currentlyHere ? "opacity-30 pointer-events-none" : ""].join(" ")}
             />
-            <label htmlFor="currently_here" className="font-mono text-[12px] text-a-ink-4 cursor-pointer">
-              currently here
-            </label>
+            <div className="flex items-center gap-2 mt-2">
+              <input
+                type="checkbox"
+                id="currently_here"
+                checked={currentlyHere}
+                onChange={(e) => setCurrentlyHere(e.target.checked)}
+                className="w-4 h-4 border-2 border-black rounded accent-[#4ade80] cursor-pointer"
+              />
+              <label htmlFor="currently_here" className="font-mono text-[12px] font-medium text-black cursor-pointer">
+                currently here
+              </label>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className={sectionLabel}>company logo</div>
+      <SectionLabel>company logo</SectionLabel>
       <div className="w-20 h-20">
-        <ImageUpload
-          value={logoUrl}
-          onChange={setLogoUrl}
-          onUpload={uploadCompanyLogo}
-          height={80}
-          square
-        />
+        <ImageUpload value={logoUrl} onChange={setLogoUrl} onUpload={uploadCompanyLogo} height={80} square />
       </div>
 
-      <div className={sectionLabel}>description</div>
+      <SectionLabel>description</SectionLabel>
       <MarkdownEditor value={description} onChange={setDescription} height={240} placeholder="describe the role and responsibilities..." />
 
-      <div className={sectionLabel}>achievements</div>
-      <p className="font-mono text-[10px] text-a-ink-8 mb-3">key bullets of impact — each line becomes a list item</p>
-      <MarkdownEditor value={achievements} onChange={setAchievements} height={200} placeholder="- shipped X which resulted in Y..." />
+      <SectionLabel>achievements</SectionLabel>
+      <FieldHint>key bullets of impact — each line becomes a list item</FieldHint>
+      <div className="mt-2">
+        <MarkdownEditor value={achievements} onChange={setAchievements} height={200} placeholder="- shipped X which resulted in Y..." />
+      </div>
 
       <FormActionBar
         backHref="/admin/experience"

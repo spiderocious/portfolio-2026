@@ -8,6 +8,9 @@ import { ImageUpload } from "../../_components/image-upload";
 import { LinksEditor } from "../../_components/links-editor";
 import { Toggle } from "../../_components/toggle";
 import { FormActionBar } from "../../_components/form-action-bar";
+import { FieldLabel, FieldHint } from "../../_components/field-label";
+import { inputCls, selectCls } from "../../_components/input-cls";
+import { SectionLabel } from "../../_components/section-label";
 import { uploadExperimentCover } from "@/lib/services/storage";
 import type { Experiment, ExperimentStatus } from "@/lib/services/types";
 
@@ -58,58 +61,56 @@ export function ExperimentForm({ experiment, onSubmit }: ExperimentFormProps) {
     startTransition(async () => { await onSubmit(fd); });
   }
 
-  const sectionLabel = "font-mono text-[9px] uppercase tracking-[0.18em] text-a-ink-8 mt-8 mb-3 pb-2 border-b border-a-border-sub";
-  const fieldLabel = "font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-a-ink-6 mb-1.5 block";
-  const inputCls = "w-full h-11 bg-a-surface border border-[#222222] rounded px-3.5 font-mono text-[13px] text-a-ink-2 placeholder:text-a-ink-8 outline-none focus:border-a-border-act focus:[box-shadow:0_0_0_2px_rgba(255,255,255,0.04)] transition-all duration-150";
-
   const statusOptions: { value: ExperimentStatus; label: string }[] = [
-    { value: "live", label: "live" },
-    { value: "wip", label: "wip" },
-    { value: "idea", label: "idea" },
+    { value: "live",     label: "live"     },
+    { value: "wip",      label: "wip"      },
+    { value: "idea",     label: "idea"     },
     { value: "archived", label: "archived" },
   ];
 
   return (
     <form onSubmit={handleFormSubmit} className="max-w-[720px]">
-      <div className={sectionLabel}>basic info</div>
+      <SectionLabel>basic info</SectionLabel>
 
-      <div className="mb-4">
-        <label className={fieldLabel}>title</label>
-        <input type="text" value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder="My Experiment" required className={inputCls} />
-      </div>
-
-      <div className="mb-4">
-        <label className={fieldLabel}>slug</label>
-        <input type="text" value={slug} onChange={(e) => { setSlug(e.target.value); setSlugTouched(true); }} placeholder="my-experiment" required className={inputCls} />
-        <p className="font-mono text-[10px] text-a-ink-8 mt-1">used in URL: /experiments/[slug]</p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <label className={fieldLabel}>status</label>
-          <select value={status} onChange={(e) => setStatus(e.target.value as ExperimentStatus)} className={[inputCls, "cursor-pointer appearance-none"].join(" ")}>
-            {statusOptions.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-          </select>
+          <FieldLabel>title</FieldLabel>
+          <input type="text" value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder="My Experiment" required className={inputCls} />
         </div>
+
         <div>
-          <label className={fieldLabel}>featured</label>
-          <div className="flex items-center gap-3 h-11">
-            <Toggle checked={featured} onChange={setFeatured} />
-            <span className="font-mono text-[10px] text-a-ink-8">show on landing page</span>
+          <FieldLabel>slug</FieldLabel>
+          <input type="text" value={slug} onChange={(e) => { setSlug(e.target.value); setSlugTouched(true); }} placeholder="my-experiment" required className={inputCls} />
+          <FieldHint>used in URL: /experiments/[slug]</FieldHint>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <FieldLabel>status</FieldLabel>
+            <select value={status} onChange={(e) => setStatus(e.target.value as ExperimentStatus)} className={selectCls}>
+              {statusOptions.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+            </select>
+          </div>
+          <div>
+            <FieldLabel>featured</FieldLabel>
+            <div className="flex items-center gap-3 h-11">
+              <Toggle checked={featured} onChange={setFeatured} />
+              <span className="font-mono text-[11px] font-medium text-[#666]">show on landing page</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className={sectionLabel}>description</div>
+      <SectionLabel>description</SectionLabel>
       <MarkdownEditor value={description} onChange={setDescription} height={280} placeholder="write markdown here..." />
 
-      <div className={sectionLabel}>stack</div>
+      <SectionLabel>stack</SectionLabel>
       <TagsInput value={stack} onChange={setStack} />
 
-      <div className={sectionLabel}>cover image</div>
+      <SectionLabel>cover image</SectionLabel>
       <ImageUpload value={coverImage} onChange={setCoverImage} onUpload={uploadExperimentCover} height={120} />
 
-      <div className={sectionLabel}>links</div>
+      <SectionLabel>links</SectionLabel>
       <LinksEditor value={links} onChange={setLinks} />
 
       <FormActionBar

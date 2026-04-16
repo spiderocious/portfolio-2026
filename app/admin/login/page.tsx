@@ -16,40 +16,55 @@ export default function AdminLoginPage() {
   );
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 bg-a-base admin-grain">
-      <div className="w-full max-w-100 flex flex-col">
+    <main className="min-h-screen bg-white flex">
 
-        {/* Terminal bar */}
-        <div className="h-10 flex items-center justify-between px-4 bg-a-raised border border-dashed border-a-border-hov/40 border-b-a-border rounded-t-md">
-          <span className="font-mono text-[11px] text-a-ink-4 flex items-center gap-1">
-            feranmi@admin&nbsp;~&nbsp;$
-            <span className="inline-block w-[7px] h-[13px] bg-a-green align-middle animate-[cursor-blink_1s_step-end_infinite]" />
-          </span>
+      {/* Left panel — branding */}
+      <div className="hidden lg:flex w-[420px] flex-shrink-0 bg-black flex-col justify-between p-12">
+        <div>
+          <div className="flex items-center gap-3 mb-16">
+            <span className="inline-block w-3 h-3 rounded-full bg-[#4ade80]" />
+            <span className="font-mono text-[13px] font-bold text-white tracking-tight">feranmi.admin</span>
+          </div>
+          <h2 className="font-mono text-[32px] font-black text-white leading-[1.1] tracking-tight mb-4">
+            Content<br />Management
+          </h2>
+          <p className="font-mono text-[13px] text-white/50 leading-relaxed">
+            Manage projects, writing,<br />experience, and site data.
+          </p>
         </div>
+        <p className="font-mono text-[11px] text-white/25">
+          © {new Date().getFullYear()} feranmi.dev
+        </p>
+      </div>
 
-        {/* Card */}
-        <div className="px-9 pt-10 pb-9 bg-a-card border border-t-0 border-a-border rounded-b-md">
+      {/* Right panel — form */}
+      <div className="flex-1 flex items-center justify-center px-8 py-16">
+        <div className="w-full max-w-[360px]">
 
-          {/* Heading */}
-          <div className="mb-8">
-            <h1 className="font-display text-[26px] font-normal leading-tight tracking-tight text-a-ink mb-2">
-              Welcome back, Feranmi.
+          {/* Mobile logo */}
+          <div className="flex items-center gap-2 mb-10 lg:hidden">
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#4ade80]" />
+            <span className="font-mono text-[12px] font-bold text-black">feranmi.admin</span>
+          </div>
+
+          <div className="mb-10">
+            <h1 className="font-mono text-[28px] font-black text-black tracking-tight leading-none mb-3">
+              Sign in
             </h1>
-            <p className="font-mono text-[11px] text-a-ink-4">
-              Enter your credentials to access the admin panel.
+            <p className="font-mono text-[13px] text-[#666666] font-medium">
+              Enter your credentials to continue.
             </p>
           </div>
 
-          {/* Form */}
           <form action={formAction} className="flex flex-col gap-5">
 
             {/* Email */}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2">
               <label
                 htmlFor="email"
-                className="font-mono text-[10px] uppercase tracking-[0.12em] text-a-ink-4"
+                className="font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-black"
               >
-                email
+                Email address
               </label>
               <input
                 id="email"
@@ -64,44 +79,44 @@ export default function AdminLoginPage() {
             </div>
 
             {/* Password */}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2">
               <label
                 htmlFor="password"
-                className="font-mono text-[10px] uppercase tracking-[0.12em] text-a-ink-4"
+                className="font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-black"
               >
-                password
+                Password
               </label>
               <PasswordField disabled={isPending} />
             </div>
 
             {/* Error */}
             {state?.error && (
-              <p className="font-mono text-[11px] text-a-red -mt-1">
-                {state.error}
-              </p>
+              <div className="border-l-4 border-[#ef4444] pl-4 py-2">
+                <p className="font-mono text-[12px] text-[#ef4444] font-semibold">
+                  {state.error}
+                </p>
+              </div>
             )}
 
             {/* Submit */}
             <button
               type="submit"
               disabled={isPending}
-              className="admin-btn-primary mt-1 disabled:opacity-65"
+              className="admin-btn-primary mt-2"
             >
-              {isPending ? "entering..." : "enter →"}
+              {isPending ? "Signing in…" : "Sign in →"}
             </button>
           </form>
 
-          {/* Back to site */}
-          <div className="mt-7 text-center">
+          <div className="mt-8 pt-8 border-t border-[#e4e4e4]">
             <Link
               href="/"
-              className="font-mono text-[11px] text-a-ink-4 hover:text-a-ink-3 transition-colors duration-150"
+              className="font-mono text-[12px] font-semibold text-[#666666] hover:text-black transition-colors duration-150"
             >
-              ← back to site
+              ← Back to site
             </Link>
           </div>
         </div>
-
       </div>
     </main>
   );
@@ -127,13 +142,13 @@ function PasswordField({ disabled }: { disabled: boolean }) {
         required
         placeholder="••••••••"
         disabled={disabled}
-        className="admin-input w-full pr-10"
+        className="admin-input w-full pr-12"
       />
       <button
         type="button"
         onClick={toggle}
         aria-label="Toggle password visibility"
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-a-ink-5 hover:text-a-ink-4 transition-colors duration-150"
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#999] hover:text-black transition-colors duration-150 p-1"
       >
         <EyeIcon />
       </button>
@@ -143,14 +158,14 @@ function PasswordField({ disabled }: { disabled: boolean }) {
 
 function EyeIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+    <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
       <path
         d="M1 7s2-4 6-4 6 4 6 4-2 4-6 4-6-4-6-4z"
         stroke="currentColor"
-        strokeWidth="1.1"
+        strokeWidth="1.4"
         strokeLinejoin="round"
       />
-      <circle cx="7" cy="7" r="1.5" stroke="currentColor" strokeWidth="1.1" />
+      <circle cx="7" cy="7" r="1.5" stroke="currentColor" strokeWidth="1.4" />
     </svg>
   );
 }

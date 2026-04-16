@@ -1,4 +1,4 @@
-import { getBrowserDb } from "@/lib/db";
+import { getBrowserDb } from "@/lib/db/browser";
 import type { StorageBucket, VoidResult } from "./types";
 
 function generateFileName(file: File): string {

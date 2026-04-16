@@ -9,6 +9,9 @@ import { LinksEditor } from "../../_components/links-editor";
 import { LiveDataEditor } from "../../_components/live-data-editor";
 import { Toggle } from "../../_components/toggle";
 import { FormActionBar } from "../../_components/form-action-bar";
+import { FieldLabel, FieldHint } from "../../_components/field-label";
+import { inputCls, selectCls } from "../../_components/input-cls";
+import { SectionLabel } from "../../_components/section-label";
 import { uploadProjectCover } from "@/lib/services/storage";
 import type { Project, ProjectStatus } from "@/lib/services/types";
 
@@ -71,95 +74,59 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
   }
 
   const statusOptions: { value: ProjectStatus; label: string; cls: string }[] = [
-    { value: "active",   label: "active",   cls: "text-a-green" },
+    { value: "active",   label: "active",   cls: "text-[#15803d]" },
     { value: "wip",      label: "wip",      cls: "text-[#facc15]" },
-    { value: "archived", label: "archived", cls: "text-a-ink-6" },
+    { value: "archived", label: "archived", cls: "text-black-6" },
   ];
-
-  const sectionLabel = "font-mono text-[9px] uppercase tracking-[0.18em] text-a-ink-8 mt-8 mb-3 pb-2 border-b border-a-border-sub";
-  const fieldLabel = "font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-a-ink-6 mb-1.5 block";
-  const inputCls = "w-full h-11 bg-a-surface border border-[#222222] rounded px-3.5 font-mono text-[13px] text-a-ink-2 placeholder:text-a-ink-8 outline-none focus:border-a-border-act focus:[box-shadow:0_0_0_2px_rgba(255,255,255,0.04)] transition-all duration-150";
 
   return (
     <form onSubmit={handleFormSubmit} className="max-w-[720px]">
-      {/* ── Basic Info ── */}
-      <div className={sectionLabel}>basic info</div>
+      <SectionLabel>basic info</SectionLabel>
 
-      <div className="mb-4">
-        <label className={fieldLabel}>title</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => handleTitleChange(e.target.value)}
-          placeholder="My Project"
-          required
-          className={inputCls}
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className={fieldLabel}>slug</label>
-        <input
-          type="text"
-          value={slug}
-          onChange={(e) => { setSlug(e.target.value); setSlugTouched(true); }}
-          placeholder="my-project"
-          required
-          className={inputCls}
-        />
-        <p className="font-mono text-[10px] text-a-ink-8 mt-1">used in URL: /projects/[slug]</p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <label className={fieldLabel}>status</label>
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value as ProjectStatus)}
-            className={[inputCls, "cursor-pointer appearance-none"].join(" ")}
-          >
-            {statusOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
+          <FieldLabel>title</FieldLabel>
+          <input type="text" value={title} onChange={(e) => handleTitleChange(e.target.value)} placeholder="My Project" required className={inputCls} />
         </div>
+
         <div>
-          <label className={fieldLabel}>featured</label>
-          <div className="flex items-center gap-3 h-11">
-            <Toggle checked={featured} onChange={setFeatured} />
-            <span className="font-mono text-[10px] text-a-ink-8">show on landing page</span>
+          <FieldLabel>slug</FieldLabel>
+          <input type="text" value={slug} onChange={(e) => { setSlug(e.target.value); setSlugTouched(true); }} placeholder="my-project" required className={inputCls} />
+          <FieldHint>used in URL: /projects/[slug]</FieldHint>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <FieldLabel>status</FieldLabel>
+            <select value={status} onChange={(e) => setStatus(e.target.value as ProjectStatus)} className={selectCls}>
+              {statusOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <FieldLabel>featured</FieldLabel>
+            <div className="flex items-center gap-3 h-11">
+              <Toggle checked={featured} onChange={setFeatured} />
+              <span className="font-mono text-[11px] font-medium text-[#666]">show on landing page</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ── Description ── */}
-      <div className={sectionLabel}>description</div>
-      <MarkdownEditor
-        value={description}
-        onChange={setDescription}
-        height={320}
-        placeholder="write markdown here..."
-      />
+      <SectionLabel>description</SectionLabel>
+      <MarkdownEditor value={description} onChange={setDescription} height={320} placeholder="write markdown here..." />
 
-      {/* ── Stack ── */}
-      <div className={sectionLabel}>stack</div>
+      <SectionLabel>stack</SectionLabel>
       <TagsInput value={stack} onChange={setStack} />
 
-      {/* ── Cover Image ── */}
-      <div className={sectionLabel}>cover image</div>
-      <ImageUpload
-        value={coverImage}
-        onChange={setCoverImage}
-        onUpload={uploadProjectCover}
-        height={120}
-      />
+      <SectionLabel>cover image</SectionLabel>
+      <ImageUpload value={coverImage} onChange={setCoverImage} onUpload={uploadProjectCover} height={120} />
 
-      {/* ── Links ── */}
-      <div className={sectionLabel}>links</div>
+      <SectionLabel>links</SectionLabel>
       <LinksEditor value={links} onChange={setLinks} />
 
-      {/* ── Live Data ── */}
-      <div className={sectionLabel}>live data</div>
+      <SectionLabel>live data</SectionLabel>
       <LiveDataEditor value={liveData} onChange={setLiveData} />
 
       <FormActionBar

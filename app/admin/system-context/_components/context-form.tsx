@@ -4,6 +4,9 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Toggle } from "../../_components/toggle";
 import { FormActionBar } from "../../_components/form-action-bar";
+import { FieldLabel, FieldHint } from "../../_components/field-label";
+import { inputCls, selectCls, textareaCls } from "../../_components/input-cls";
+import { SectionLabel } from "../../_components/section-label";
 import type { SystemContextEntry, ContextCategory } from "@/lib/services/types";
 
 interface ContextFormProps {
@@ -32,24 +35,20 @@ export function ContextForm({ entry, onSubmit }: ContextFormProps) {
     startTransition(async () => { await onSubmit(fd); });
   }
 
-  const sectionLabel = "font-mono text-[9px] uppercase tracking-[0.18em] text-a-ink-8 mt-8 mb-3 pb-2 border-b border-a-border-sub";
-  const fieldLabel = "font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-a-ink-6 mb-1.5 block";
-  const inputCls = "w-full h-11 bg-a-surface border border-[#222222] rounded px-3.5 font-mono text-[13px] text-a-ink-2 placeholder:text-a-ink-8 outline-none focus:border-a-border-act focus:[box-shadow:0_0_0_2px_rgba(255,255,255,0.04)] transition-all duration-150";
-
   return (
     <form onSubmit={handleFormSubmit} className="max-w-[720px]">
-      <div className={sectionLabel}>entry info</div>
+      <SectionLabel>entry info</SectionLabel>
 
       <div className="mb-4">
-        <label className={fieldLabel}>label</label>
+        <FieldLabel>label</FieldLabel>
         <input type="text" value={label} onChange={(e) => setLabel(e.target.value)} placeholder="Professional Identity" required className={inputCls} />
-        <p className="font-mono text-[10px] text-a-ink-8 mt-1">human-readable name for this entry</p>
+        <FieldHint>human-readable name for this entry</FieldHint>
       </div>
 
       <div className="grid grid-cols-3 gap-4 mb-4">
         <div>
-          <label className={fieldLabel}>category</label>
-          <select value={category} onChange={(e) => setCategory(e.target.value as ContextCategory | "")} className={[inputCls, "cursor-pointer appearance-none"].join(" ")}>
+          <FieldLabel>category</FieldLabel>
+          <select value={category} onChange={(e) => setCategory(e.target.value as ContextCategory | "")} className={selectCls}>
             <option value="">none</option>
             <option value="professional">professional</option>
             <option value="personal">personal</option>
@@ -58,29 +57,31 @@ export function ContextForm({ entry, onSubmit }: ContextFormProps) {
           </select>
         </div>
         <div>
-          <label className={fieldLabel}>position</label>
+          <FieldLabel>position</FieldLabel>
           <input type="number" value={position} onChange={(e) => setPosition(e.target.value)} placeholder="1" min="0" className={inputCls} />
-          <p className="font-mono text-[10px] text-a-ink-8 mt-1">lower = appears first</p>
+          <FieldHint>lower = appears first</FieldHint>
         </div>
         <div>
-          <label className={fieldLabel}>active</label>
+          <FieldLabel>active</FieldLabel>
           <div className="flex items-center gap-3 h-11">
             <Toggle checked={isActive} onChange={setIsActive} />
-            <span className="font-mono text-[10px] text-a-ink-8">include in system prompt</span>
+            <span className="font-mono text-[11px] font-medium text-[#666]">include in system prompt</span>
           </div>
         </div>
       </div>
 
-      <div className={sectionLabel}>content</div>
-      <p className="font-mono text-[10px] text-a-ink-8 mb-3">written in first person — this text is sent directly to the LLM</p>
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="I am a software developer based in Lagos, Nigeria..."
-        required
-        className="w-full bg-a-base border border-[#222222] rounded px-4 py-4 font-mono text-[13px] text-a-ink-2 placeholder:text-[#2a2a2a] leading-[1.7] resize-y outline-none focus:border-a-border-act transition-all duration-150"
-        style={{ height: "360px" }}
-      />
+      <SectionLabel>content</SectionLabel>
+      <FieldHint>written in first person — this text is sent directly to the LLM</FieldHint>
+      <div className="mt-2">
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="I am a software developer based in Lagos, Nigeria..."
+          required
+          className={textareaCls}
+          style={{ height: "360px" }}
+        />
+      </div>
 
       <FormActionBar
         backHref="/admin/system-context"

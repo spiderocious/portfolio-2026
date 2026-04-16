@@ -111,63 +111,61 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Admin Utilities ────────────────────────────────────────────────── */
 .admin-grain {
-  background-image: repeating-linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.03) 0px,
-    rgba(255, 255, 255, 0.03) 1px,
-    transparent 1px,
-    transparent 12px
-  );
+  background-image: none;
 }
 
 .admin-input {
   width: 100%;
   height: 44px;
   padding: 0 14px;
-  background: var(--color-a-surface);
-  border: 1px solid #222222;
-  border-radius: 4px;
+  background: #ffffff;
+  border: 1.5px solid #000000;
+  border-radius: 6px;
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--color-a-ink-2);
+  font-weight: 500;
+  color: #0a0a0a;
   outline: none;
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 .admin-input::placeholder {
-  color: var(--color-a-ink-6);
+  color: #aaaaaa;
+  font-weight: 400;
 }
 .admin-input:focus {
-  border-color: var(--color-a-border-act);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.04);
+  border-color: #4ade80;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
 }
 .admin-input:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
+  background: #f4f4f4;
 }
 
 .admin-btn-primary {
   width: 100%;
   height: 44px;
-  background: var(--color-a-btn);
-  color: var(--color-a-base);
+  background: var(--color-a-green);
+  color: #000000;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-family: var(--font-mono);
   font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   cursor: pointer;
   transition: background 150ms ease, transform 100ms ease;
 }
 .admin-btn-primary:hover:not(:disabled) {
-  background: var(--color-a-btn-hov);
+  background: #22c55e;
 }
 .admin-btn-primary:active:not(:disabled) {
   transform: scale(0.99);
-  background: var(--color-a-btn-act);
+  background: #16a34a;
 }
 .admin-btn-primary:disabled {
   background: var(--color-a-btn-dis);
+  color: #fff;
   cursor: not-allowed;
 }
 
@@ -202,31 +200,37 @@ h1, h2, h3, h4, h5, h6 {
   --font-display: "DM Serif Display", Georgia, serif;
   --font-mono:    "JetBrains Mono", "Courier New", monospace;
 
-  /* Admin dark palette — fixed, never theme-switched */
-  --color-a-base:        #0f0f0f;
-  --color-a-surface:     #111111;
-  --color-a-card:        #141414;
-  --color-a-raised:      #161616;
-  --color-a-border-sub:  #1a1a1a;
-  --color-a-border:      #1e1e1e;
-  --color-a-border-hov:  #2a2a2a;
-  --color-a-border-act:  #3a3a3a;
-  --color-a-ink:         #f0ece4;
-  --color-a-ink-2:       #d4d0c8;
-  --color-a-ink-3:       #c8c0b8;
-  --color-a-ink-4:       #888888;
+  /* Admin light palette — fixed, never theme-switched */
+  --color-a-base:        #ffffff;
+  --color-a-surface:     #fafafa;
+  --color-a-card:        #ffffff;
+  --color-a-raised:      #f4f4f4;
+  --color-a-border-sub:  #e4e4e4;
+  --color-a-border:      #d0d0d0;
+  --color-a-border-hov:  #aaaaaa;
+  --color-a-border-act:  #4ade80;
+
+  /* Text: only 3 real tones — black, mid, muted */
+  --color-a-ink:         #0a0a0a;
+  --color-a-ink-2:       #0a0a0a;
+  --color-a-ink-3:       #0a0a0a;
+  --color-a-ink-4:       #555555;
   --color-a-ink-5:       #666666;
-  --color-a-ink-6:       #555555;
-  --color-a-ink-7:       #444444;
-  --color-a-ink-8:       #333333;
+  --color-a-ink-6:       #999999;
+  --color-a-ink-7:       #999999;
+  --color-a-ink-8:       #bbbbbb;
+
   --color-a-green:       #4ade80;
-  --color-a-red:         #f87171;
-  --color-a-blue:        #60a5fa;
-  --color-a-purple:      #a78bfa;
-  --color-a-orange:      #fb923c;
-  --color-a-yellow:      #facc15;
-  --color-a-btn:         #f0ece4;
-  --color-a-btn-hov:     #ffffff;
-  --color-a-btn-act:     #e0dcd4;
-  --color-a-btn-dis:     #c8c4bc;
+  --color-a-green-dim:   #dcfce7;
+  --color-a-green-text:  #15803d;
+  --color-a-red:         #ef4444;
+  --color-a-red-dim:     #fee2e2;
+  --color-a-blue:        #2563eb;
+  --color-a-purple:      #7c3aed;
+  --color-a-orange:      #ea580c;
+  --color-a-yellow:      #ca8a04;
+  --color-a-btn:         #0a0a0a;
+  --color-a-btn-hov:     #222222;
+  --color-a-btn-act:     #333333;
+  --color-a-btn-dis:     #cccccc;
 }

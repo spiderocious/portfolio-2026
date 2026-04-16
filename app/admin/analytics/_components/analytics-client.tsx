@@ -43,8 +43,8 @@ export function AnalyticsClient() {
               className={[
                 "h-8 px-3.5 font-mono text-[11px] rounded transition-colors duration-150 border cursor-pointer",
                 range === r
-                  ? "bg-a-btn text-a-base border-transparent"
-                  : "bg-transparent text-a-ink-6 border-[#222] hover:border-[#333] hover:text-a-ink-4",
+                  ? "bg-black text-black border-transparent"
+                  : "bg-transparent text-[#666] border-[#d0d0d0] hover:border-[#aaa] hover:text-black",
               ].join(" ")}
             >
               {r}
@@ -55,34 +55,34 @@ export function AnalyticsClient() {
 
       {loading || !data ? (
         <div className="flex items-center justify-center h-40">
-          <p className="font-mono text-[11px] text-a-ink-7">loading analytics...</p>
+          <p className="font-mono text-[11px] text-[#666]">loading analytics...</p>
         </div>
       ) : (
-        <div>
+        <div className="flex flex-col gap-6">
           {/* Stats Row */}
-          <div className="grid grid-cols-4 gap-3 mb-4">
+          <div className="grid grid-cols-4 gap-4">
             {[
               { label: "total views",           value: data.total_views },
               { label: "unique pages",          value: data.unique_pages },
               { label: "project interactions",  value: data.project_interactions },
               { label: "blog reads",            value: data.blog_reads },
             ].map((s) => (
-              <div key={s.label} className="bg-a-card border border-a-border rounded-md px-5 pt-5 pb-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-a-ink-4 mb-3">{s.label}</p>
-                <p className="font-mono text-[28px] font-bold text-white leading-none mb-2">{s.value.toLocaleString()}</p>
-                <p className="font-mono text-[10px] text-a-ink-6">{rangeLabel}</p>
+              <div key={s.label} className="bg-white border border-[#d0d0d0] rounded-md px-5 pt-5 pb-4">
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-black mb-3">{s.label}</p>
+                <p className="font-mono text-[28px] font-bold text-black leading-none mb-2">{s.value.toLocaleString()}</p>
+                <p className="font-mono text-[10px] text-[#666]">{rangeLabel}</p>
               </div>
             ))}
           </div>
 
           {/* Chart */}
-          <div className="bg-a-card border border-a-border rounded-md p-5 mb-4">
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-a-ink-6 mb-5">page views over time</p>
+          <div className="bg-white border border-[#d0d0d0] rounded-md p-5">
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-black mb-5">page views over time</p>
             <LineChart data={data.page_views_over_time} height={180} />
           </div>
 
           {/* Two-column grid */}
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-2 gap-4">
             <DataTable
               title="top pages"
               cols={["page", "views"]}
@@ -117,7 +117,7 @@ function LineChart({ data, height }: { data: Array<{ date: string; count: number
   if (data.length === 0) {
     return (
       <div className="flex items-center justify-center" style={{ height }}>
-        <p className="font-mono text-[11px] text-a-ink-7">no data for this range.</p>
+        <p className="font-mono text-[11px] text-[#666]">no data for this range.</p>
       </div>
     );
   }
@@ -125,7 +125,7 @@ function LineChart({ data, height }: { data: Array<{ date: string; count: number
   const max = Math.max(...data.map((d) => d.count));
   const min = 0;
   const w = 100;
-  const h = height - 24; // leave space for x-axis labels
+  const h = height - 24;
 
   const points = data.map((d, i) => {
     const x = data.length === 1 ? 50 : (i / (data.length - 1)) * 100;
@@ -136,7 +136,6 @@ function LineChart({ data, height }: { data: Array<{ date: string; count: number
   const polyline = points.map((p) => `${p.x},${p.y}`).join(" ");
   const areaPath = `M${points[0].x},${h} L${points.map((p) => `${p.x},${p.y}`).join(" L")} L${points[points.length - 1].x},${h} Z`;
 
-  // Grid lines (4 horizontal)
   const gridLines = [0, 1, 2, 3].map((i) => ({
     y: (h / 3) * i,
     value: Math.round(max - (max / 3) * i),
@@ -152,17 +151,17 @@ function LineChart({ data, height }: { data: Array<{ date: string; count: number
       >
         {/* Grid lines */}
         {gridLines.map((g) => (
-          <line key={g.y} x1="0" y1={g.y} x2="100" y2={g.y} stroke="#1a1a1a" strokeWidth="0.3" />
+          <line key={g.y} x1="0" y1={g.y} x2="100" y2={g.y} stroke="#e8e8e8" strokeWidth="0.3" />
         ))}
 
         {/* Area fill */}
-        <path d={areaPath} fill="rgba(200,192,184,0.05)" />
+        <path d={areaPath} fill="rgba(74,222,128,0.1)" />
 
         {/* Line */}
         <polyline
           points={polyline}
           fill="none"
-          stroke="#c8c0b8"
+          stroke="#4ade80"
           strokeWidth="0.8"
           strokeLinejoin="round"
           vectorEffect="non-scaling-stroke"
@@ -172,7 +171,7 @@ function LineChart({ data, height }: { data: Array<{ date: string; count: number
       {/* X-axis labels */}
       <div className="flex justify-between mt-1 overflow-hidden">
         {[data[0], data[Math.floor(data.length / 2)], data[data.length - 1]].filter(Boolean).map((d) => (
-          <span key={d.date} className="font-mono text-[9px] text-a-ink-8">
+          <span key={d.date} className="font-mono text-[9px] text-[#666]">
             {new Date(d.date).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
           </span>
         ))}
@@ -183,25 +182,25 @@ function LineChart({ data, height }: { data: Array<{ date: string; count: number
 
 function DataTable({ title, cols, rows }: { title: string; cols: string[]; rows: string[][] }) {
   return (
-    <div className="bg-a-card border border-a-border rounded-md overflow-hidden">
-      <div className="h-11 flex items-center px-5 border-b border-a-border">
-        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-a-ink-6">{title}</span>
+    <div className="bg-white border border-[#d0d0d0] rounded-md overflow-hidden">
+      <div className="h-11 flex items-center px-5 border-b border-[#d0d0d0]">
+        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-black">{title}</span>
       </div>
       {rows.length === 0 ? (
         <div className="flex items-center justify-center h-20">
-          <p className="font-mono text-[11px] text-a-ink-7">no data.</p>
+          <p className="font-mono text-[11px] text-[#888]">no data.</p>
         </div>
       ) : (
         <table className="w-full border-collapse">
           <tbody>
             {rows.map((row, i) => (
-              <tr key={i} className="h-10 border-b border-[#191919] last:border-b-0 hover:bg-white/[0.02] transition-colors duration-100">
+              <tr key={i} className="h-10 border-b border-[#e8e8e8] last:border-b-0 hover:bg-white transition-colors duration-100">
                 {row.map((cell, j) => (
                   <td
                     key={j}
                     className={[
                       "font-mono text-[11px] px-5",
-                      j === 0 ? "text-a-ink-3 truncate max-w-0" : "text-a-ink-3 text-right font-bold w-20",
+                      j === 0 ? "text-black truncate max-w-0" : "text-black text-right font-bold w-20",
                     ].join(" ")}
                   >
                     {cell}

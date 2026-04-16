@@ -1,5 +1,9 @@
 import Link from "next/link";
 import { getAllConversations } from "@/lib/services/chats";
+import { AdminTable, Tr, Td } from "../_components/admin-table";
+import { SectionLabel } from "../_components/section-label";
+
+const COLS = "160px 1fr 100px 140px 70px";
 
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString("en-GB", {
@@ -21,55 +25,46 @@ export default async function ChatsPage() {
   const conversations = await getAllConversations();
 
   return (
-    <>
-      <div className="mb-3 pb-2 border-b border-a-border-sub">
-        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-a-ink-8">all conversations</p>
-      </div>
+    <div className="flex flex-col gap-4">
+      <SectionLabel>all conversations</SectionLabel>
 
-      <div className="bg-a-card border border-a-border rounded-md overflow-hidden">
-        <div className="grid bg-a-surface h-9 border-b border-a-border-sub" style={{ gridTemplateColumns: "160px 1fr 90px 140px 60px" }}>
-          {["session", "started", "messages", "last active", "view"].map((h, i) => (
-            <div key={h} className={["font-mono text-[9px] uppercase tracking-[0.14em] text-a-ink-7 font-medium flex items-center px-4", i === 4 ? "justify-end" : ""].join(" ")}>
-              {h}
-            </div>
-          ))}
-        </div>
-
-        {conversations.length === 0 ? (
-          <div className="flex items-center justify-center h-[120px]">
-            <p className="font-mono text-[11px] text-a-ink-7">no conversations yet.</p>
-          </div>
-        ) : (
-          conversations.map((convo) => (
-            <div
-              key={convo.id}
-              className="grid h-12 border-b border-[#191919] last:border-b-0 hover:bg-white/[0.02] transition-colors duration-100 items-center"
-              style={{ gridTemplateColumns: "160px 1fr 90px 140px 60px" }}
-            >
-              <div className="px-4">
-                <span className="font-mono text-[11px] text-a-ink-6">{convo.session_id.slice(0, 12)}...</span>
-              </div>
-              <div className="px-4">
-                <span className="font-mono text-[11px] text-a-ink-5">{formatDate(convo.started_at)}</span>
-              </div>
-              <div className="px-4 text-right">
-                <span className="font-mono text-[11px] text-a-ink-4">{convo.message_count}</span>
-              </div>
-              <div className="px-4">
-                <span className="font-mono text-[11px] text-a-ink-6">{timeAgo(convo.last_message_at)}</span>
-              </div>
-              <div className="px-4 flex justify-end">
-                <Link
-                  href={`/admin/chats/${convo.id}`}
-                  className="font-mono text-[11px] text-a-ink-7 hover:text-a-ink-3 transition-colors duration-150"
-                >
-                  view →
-                </Link>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-    </>
+      <AdminTable
+        columns={[
+          { label: "session" },
+          { label: "started" },
+          { label: "messages", align: "right" },
+          { label: "last active" },
+          { label: "view", align: "right" },
+        ]}
+        columnWidths={COLS}
+        isEmpty={conversations.length === 0}
+        emptyText="no conversations yet."
+      >
+        {conversations.map((convo) => (
+          <Tr key={convo.id} columnWidths={COLS} height="h-[52px]">
+            <Td>
+              <span className="font-mono text-[11px] font-semibold text-black">{convo.session_id.slice(0, 12)}…</span>
+            </Td>
+            <Td>
+              <span className="font-mono text-[11px] text-[#666]">{formatDate(convo.started_at)}</span>
+            </Td>
+            <Td align="right">
+              <span className="font-mono text-[12px] font-bold text-black">{convo.message_count}</span>
+            </Td>
+            <Td>
+              <span className="font-mono text-[11px] text-[#666]">{timeAgo(convo.last_message_at)}</span>
+            </Td>
+            <Td align="right">
+              <Link
+                href={`/admin/chats/${convo.id}`}
+                className="font-mono text-[11px] font-bold text-black hover:text-[#4ade80] transition-colors duration-150"
+              >
+                view →
+              </Link>
+            </Td>
+          </Tr>
+        ))}
+      </AdminTable>
+    </div>
   );
 }

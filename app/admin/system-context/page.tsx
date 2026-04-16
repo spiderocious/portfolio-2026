@@ -4,10 +4,10 @@ import type { SystemContextEntry, ContextCategory } from "@/lib/services/types";
 import { SystemContextListClient } from "./_components/list-client";
 
 const categoryBadge: Record<NonNullable<ContextCategory>, string> = {
-  professional: "bg-[#0e1a2a] border-[#1a3a5c] text-a-blue",
-  personal:     "bg-[#0e2a1a] border-[#1a5c30] text-a-green",
-  opinions:     "bg-[#1a0e1a] border-[#4a1a5c] text-[#c084fc]",
-  instructions: "bg-[#1a1a0e] border-[#5c4a00] text-[#facc15]",
+  professional: "bg-blue-50 border-blue-300 text-blue-700",
+  personal:     "bg-[#dcfce7] border-[#4ade80] text-[#15803d]",
+  opinions:     "bg-purple-50 border-purple-300 text-purple-700",
+  instructions: "bg-yellow-50 border-yellow-300 text-yellow-700",
 };
 
 export default async function SystemContextPage() {

@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { getAllAwards } from "@/lib/services/awards";
 import { SetTopbarActions } from "../_components/set-topbar-actions";
+import { AdminTable, Tr, Td } from "../_components/admin-table";
+import { SectionLabel } from "../_components/section-label";
 import { AwardRowActions } from "./_components/row-actions";
+
+const COLS = "1fr 200px 110px 80px";
 
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString("en-GB", { month: "short", year: "numeric" });
@@ -11,62 +15,46 @@ export default async function AwardsPage() {
   const awards = await getAllAwards();
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <SetTopbarActions>
         <Link
           href="/admin/awards/new"
-          className="h-8 px-3.5 font-mono text-[11px] font-medium bg-a-btn text-a-base hover:bg-a-btn-hov transition-colors duration-150 rounded flex items-center"
+          className="h-8 px-4 font-mono text-[11px] font-bold bg-[#4ade80] text-black hover:bg-[#22c55e] transition-colors duration-150 rounded flex items-center"
         >
           new award +
         </Link>
       </SetTopbarActions>
 
-      <div className="mb-3 pb-2 border-b border-a-border-sub">
-        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-a-ink-8">all awards</p>
-      </div>
+      <SectionLabel>all awards</SectionLabel>
 
-      <div className="bg-a-card border border-a-border rounded-md overflow-hidden">
-        <div className="grid bg-a-surface h-9 border-b border-a-border-sub" style={{ gridTemplateColumns: "1fr 180px 100px 80px" }}>
-          {["title", "issuer", "date", "actions"].map((h, i) => (
-            <div
-              key={h}
-              className={[
-                "font-mono text-[9px] uppercase tracking-[0.14em] text-a-ink-7 font-medium flex items-center px-4",
-                i === 3 ? "justify-end" : "",
-              ].join(" ")}
-            >
-              {h}
-            </div>
-          ))}
-        </div>
-
-        {awards.length === 0 ? (
-          <div className="flex items-center justify-center h-[120px]">
-            <p className="font-mono text-[11px] text-a-ink-7">no awards yet.</p>
-          </div>
-        ) : (
-          awards.map((award) => (
-            <div
-              key={award.id}
-              className="grid h-12 border-b border-[#191919] last:border-b-0 hover:bg-white/[0.02] transition-colors duration-100 items-center"
-              style={{ gridTemplateColumns: "1fr 180px 100px 80px" }}
-            >
-              <div className="px-4">
-                <span className="font-mono text-[12px] text-a-ink-3 font-medium">{award.title}</span>
-              </div>
-              <div className="px-4">
-                <span className="font-mono text-[11px] text-a-ink-4">{award.issuer}</span>
-              </div>
-              <div className="px-4">
-                <span className="font-mono text-[11px] text-a-ink-6">{formatDate(award.date)}</span>
-              </div>
-              <div className="px-4">
-                <AwardRowActions awardId={award.id} title={award.title} />
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-    </>
+      <AdminTable
+        columns={[
+          { label: "title" },
+          { label: "issuer" },
+          { label: "date" },
+          { label: "actions", align: "right" },
+        ]}
+        columnWidths={COLS}
+        isEmpty={awards.length === 0}
+        emptyText="no awards yet."
+      >
+        {awards.map((award) => (
+          <Tr key={award.id} columnWidths={COLS} height="h-[52px]">
+            <Td>
+              <span className="font-mono text-[12px] font-semibold text-black">{award.title}</span>
+            </Td>
+            <Td>
+              <span className="font-mono text-[11px] font-medium text-black">{award.issuer}</span>
+            </Td>
+            <Td>
+              <span className="font-mono text-[11px] text-[#666]">{formatDate(award.date)}</span>
+            </Td>
+            <Td align="right">
+              <AwardRowActions awardId={award.id} title={award.title} />
+            </Td>
+          </Tr>
+        ))}
+      </AdminTable>
+    </div>
   );
 }

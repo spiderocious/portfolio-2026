@@ -21,11 +21,11 @@ export function MarkdownEditor({
 
   return (
     <div
-      className="bg-a-surface border border-[#222222] rounded overflow-hidden"
+      className="bg-white border border-[#d0d0d0] rounded overflow-hidden"
       style={{ height }}
     >
       {/* Tab bar */}
-      <div className="flex items-center h-9 bg-a-base border-b border-a-border">
+      <div className="flex items-center h-9 bg-white border-b border-[#d0d0d0]">
         {(["write", "preview"] as const).map((t) => (
           <button
             key={t}
@@ -34,8 +34,8 @@ export function MarkdownEditor({
             className={[
               "font-mono text-[11px] px-4 h-full border-b-2 transition-colors duration-150",
               tab === t
-                ? "text-a-ink border-a-ink"
-                : "text-a-ink-7 border-transparent hover:text-a-ink-4",
+                ? "text-black border-black"
+                : "text-[#666] border-transparent hover:text-black",
             ].join(" ")}
           >
             {t}
@@ -50,7 +50,7 @@ export function MarkdownEditor({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           style={{ height: bodyH }}
-          className="w-full bg-a-surface px-4 py-4 font-mono text-[13px] text-a-ink-2 leading-relaxed resize-none outline-none placeholder:text-[#2a2a2a] border-none"
+          className="w-full bg-white px-4 py-4 font-mono text-[13px] text-black leading-relaxed resize-none outline-none placeholder:text-[#2a2a2a] border-none"
         />
       ) : (
         <div
@@ -67,7 +67,7 @@ export function MarkdownEditor({
 function MarkdownPreview({ content }: { content: string }) {
   if (!content.trim()) {
     return (
-      <p className="font-mono text-[11px] text-a-ink-7 italic">nothing to preview yet.</p>
+      <p className="font-mono text-[11px] text-[#666] italic">nothing to preview yet.</p>
     );
   }
 
@@ -87,13 +87,13 @@ function MarkdownPreview({ content }: { content: string }) {
       );
     } else if (line.startsWith("## ")) {
       elements.push(
-        <h2 key={i} className="font-mono text-[17px] font-semibold text-a-ink-3 mb-2 mt-5">
+        <h2 key={i} className="font-mono text-[17px] font-semibold text-black mb-2 mt-5">
           {line.slice(3)}
         </h2>
       );
     } else if (line.startsWith("# ")) {
       elements.push(
-        <h1 key={i} className="font-mono text-[20px] font-semibold text-a-ink mb-3 mt-6">
+        <h1 key={i} className="font-mono text-[20px] font-semibold text-black mb-3 mt-6">
           {line.slice(2)}
         </h1>
       );
@@ -106,21 +106,21 @@ function MarkdownPreview({ content }: { content: string }) {
         i++;
       }
       elements.push(
-        <pre key={i} className="bg-a-base border border-a-border rounded p-3 mb-3 overflow-x-auto">
-          <code className="font-mono text-[12px] text-a-ink-3 leading-relaxed">
+        <pre key={i} className="bg-white border border-[#d0d0d0] rounded p-3 mb-3 overflow-x-auto">
+          <code className="font-mono text-[12px] text-black leading-relaxed">
             {codeLines.join("\n")}
           </code>
         </pre>
       );
     } else if (line.startsWith("- ") || line.startsWith("* ")) {
       elements.push(
-        <li key={i} className="font-mono text-[13px] text-a-ink-4 leading-relaxed ml-5 list-disc mb-1">
+        <li key={i} className="font-mono text-[13px] text-[#666] leading-relaxed ml-5 list-disc mb-1">
           {renderInline(line.slice(2))}
         </li>
       );
     } else if (/^\d+\. /.test(line)) {
       elements.push(
-        <li key={i} className="font-mono text-[13px] text-a-ink-4 leading-relaxed ml-5 list-decimal mb-1">
+        <li key={i} className="font-mono text-[13px] text-[#666] leading-relaxed ml-5 list-decimal mb-1">
           {renderInline(line.replace(/^\d+\. /, ""))}
         </li>
       );
@@ -128,7 +128,7 @@ function MarkdownPreview({ content }: { content: string }) {
       elements.push(<div key={i} className="h-3" />);
     } else {
       elements.push(
-        <p key={i} className="font-mono text-[13px] text-a-ink-4 leading-[1.7] mb-2">
+        <p key={i} className="font-mono text-[13px] text-[#666] leading-[1.7] mb-2">
           {renderInline(line)}
         </p>
       );
@@ -146,14 +146,14 @@ function renderInline(text: string): React.ReactNode {
   return parts.map((part, i) => {
     if (part.startsWith("`") && part.endsWith("`")) {
       return (
-        <code key={i} className="bg-a-base text-a-green px-1 rounded font-mono text-[12px]">
+        <code key={i} className="bg-white text-[#15803d] px-1 rounded font-mono text-[12px]">
           {part.slice(1, -1)}
         </code>
       );
     }
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={i} className="text-a-ink-3 font-semibold">
+        <strong key={i} className="text-black font-semibold">
           {part.slice(2, -2)}
         </strong>
       );
