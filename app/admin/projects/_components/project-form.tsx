@@ -80,7 +80,7 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
   ];
 
   return (
-    <form onSubmit={handleFormSubmit} className="max-w-[720px]">
+    <form onSubmit={handleFormSubmit} className="max-w-180">
       <SectionLabel>basic info</SectionLabel>
 
       <div className="flex flex-col gap-4">

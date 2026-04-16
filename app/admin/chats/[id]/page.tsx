@@ -27,7 +27,7 @@ export default async function ChatThreadPage({ params }: Props) {
   if (!convo) notFound();
 
   return (
-    <div className="max-w-[640px] mx-auto">
+    <div className="max-w-[640px] mx-auto flex flex-col gap-6">
       {/* Back link */}
       <div className="mb-4">
         <Link href="/admin/chats" className="font-mono text-[11px] text-black hover:text-black transition-colors duration-150">

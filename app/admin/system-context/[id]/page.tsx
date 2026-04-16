@@ -15,7 +15,7 @@ export default async function EditContextEntryPage({ params }: Props) {
   return (
     <ContextForm
       entry={entry}
-      onSubmit={(fd) => updateContextEntryAction(id, fd)}
+      onSubmit={updateContextEntryAction.bind(null, id)}
     />
   );
 }

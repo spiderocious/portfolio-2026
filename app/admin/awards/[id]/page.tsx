@@ -15,7 +15,7 @@ export default async function EditAwardPage({ params }: Props) {
   return (
     <AwardForm
       award={award}
-      onSubmit={(fd) => updateAwardAction(id, fd)}
+      onSubmit={updateAwardAction.bind(null, id)}
     />
   );
 }

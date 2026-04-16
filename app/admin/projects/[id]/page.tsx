@@ -15,7 +15,7 @@ export default async function EditProjectPage({ params }: Props) {
   return (
     <ProjectForm
       project={project}
-      onSubmit={(fd) => updateProjectAction(id, fd)}
+      onSubmit={updateProjectAction.bind(null, id)}
     />
   );
 }

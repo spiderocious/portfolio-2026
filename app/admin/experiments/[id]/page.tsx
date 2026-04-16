@@ -15,7 +15,7 @@ export default async function EditExperimentPage({ params }: Props) {
   return (
     <ExperimentForm
       experiment={experiment}
-      onSubmit={(fd) => updateExperimentAction(id, fd)}
+      onSubmit={updateExperimentAction.bind(null, id)}
     />
   );
 }

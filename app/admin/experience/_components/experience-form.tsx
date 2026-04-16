@@ -47,7 +47,7 @@ export function ExperienceForm({ experience, onSubmit }: ExperienceFormProps) {
   }
 
   return (
-    <form onSubmit={handleFormSubmit} className="max-w-[720px]">
+    <form onSubmit={handleFormSubmit} className="max-w-200 flex flex-col gap-6">
       <SectionLabel>role & company</SectionLabel>
 
       <div className="flex flex-col gap-4">

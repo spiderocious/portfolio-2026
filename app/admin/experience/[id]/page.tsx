@@ -15,7 +15,7 @@ export default async function EditExperiencePage({ params }: Props) {
   return (
     <ExperienceForm
       experience={entry}
-      onSubmit={(fd) => updateExperienceAction(id, fd)}
+      onSubmit={updateExperienceAction.bind(null, id)}
     />
   );
 }

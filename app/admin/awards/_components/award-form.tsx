@@ -39,41 +39,42 @@ export function AwardForm({ award, onSubmit }: AwardFormProps) {
   }
 
   return (
-    <form onSubmit={handleFormSubmit} className="max-w-[720px]">
+    <form onSubmit={handleFormSubmit} className="max-w-180">
       <SectionLabel>award info</SectionLabel>
 
-      <div className="mb-4">
-        <FieldLabel>title</FieldLabel>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Best Developer Award" required className={inputCls} />
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="flex flex-col gap-4">
         <div>
-          <FieldLabel>issuer</FieldLabel>
-          <input type="text" value={issuer} onChange={(e) => setIssuer(e.target.value)} placeholder="IEEE / Google / etc." required className={inputCls} />
+          <FieldLabel>title</FieldLabel>
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Best Developer Award" required className={inputCls} />
         </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <FieldLabel>issuer</FieldLabel>
+            <input type="text" value={issuer} onChange={(e) => setIssuer(e.target.value)} placeholder="IEEE / Google / etc." required className={inputCls} />
+          </div>
+          <div>
+            <FieldLabel>date</FieldLabel>
+            <input type="month" value={date} onChange={(e) => setDate(e.target.value)} required className={inputCls} />
+          </div>
+        </div>
+
         <div>
-          <FieldLabel>date</FieldLabel>
-          <input type="month" value={date} onChange={(e) => setDate(e.target.value)} required className={inputCls} />
+          <FieldLabel>url</FieldLabel>
+          <input type="url" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://..." className={inputCls} />
+          <FieldHint>link to certificate or announcement</FieldHint>
         </div>
-      </div>
 
-      <div className="mb-4">
-        <FieldLabel>url</FieldLabel>
-        <input type="url" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://..." className={inputCls} />
-        <FieldHint>link to certificate or announcement</FieldHint>
-      </div>
-
-      <div className="mb-4">
-        <FieldLabel>description</FieldLabel>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="brief description of the award or recognition..."
-          rows={5}
-          className={textareaCls}
-          style={{ height: "160px" }}
-        />
+        <div>
+          <FieldLabel>description</FieldLabel>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="brief description of the award or recognition..."
+            rows={5}
+            className={`${textareaCls} h-40`}
+          />
+        </div>
       </div>
 
       <SectionLabel>image</SectionLabel>
