@@ -18,10 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <head suppressHydrationWarning>
         <ThemeScript />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider>
           <ThemeToggle />
           {children}

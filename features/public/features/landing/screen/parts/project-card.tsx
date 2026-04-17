@@ -58,18 +58,19 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           <div className="min-w-0">
             <Link href={`/projects/${project.slug}`}>
               <h3
-                className="text-[18px] md:text-[20px] mb-1 truncate"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 500 }}
+                className="text-[20px] md:text-[22px] mb-1.5 truncate"
+                style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
               >
                 {project.title}
               </h3>
             </Link>
             {project.subtitle && (
               <p
-                className="text-[13px]"
+                className="text-[14px]"
                 style={{
                   fontFamily: "var(--font-mono)",
-                  color: featured ? "#4ade80" : "var(--ink-4)",
+                  color: featured ? "#4ade80" : "var(--ink-3)",
+                  fontWeight: 500,
                 }}
               >
                 {project.subtitle}
@@ -107,8 +108,8 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         <div className="flex items-start gap-3">
           <BulletMark accent={featured} />
           <p
-            className="text-[14px] leading-[1.6] flex-1"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)" }}
+            className="text-[15px] md:text-[16px] leading-[1.7] flex-1"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
           >
             {project.excerpt}
           </p>

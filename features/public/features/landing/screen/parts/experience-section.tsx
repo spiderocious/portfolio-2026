@@ -54,14 +54,14 @@ function ExperienceItem({ exp }: { exp: Experience }) {
       <header className="flex flex-wrap items-start justify-between gap-3 mb-3">
         <div className="min-w-0">
           <h3
-            className="text-[18px] md:text-[19px] mb-0.5"
+            className="text-[20px] md:text-[22px] mb-1"
             style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
           >
             {exp.company}
           </h3>
           <p
-            className="text-[13px] md:text-[14px]"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)" }}
+            className="text-[15px] md:text-[16px]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
           >
             {exp.role}
             {exp.location && <span> ~ {exp.location}</span>}
@@ -69,10 +69,11 @@ function ExperienceItem({ exp }: { exp: Experience }) {
         </div>
         {isCurrent && (
           <span
-            className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-2 py-1"
+            className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase px-2.5 py-1"
             style={{
               fontFamily: "var(--font-mono)",
               color: "#4ade80",
+              fontWeight: 600,
               border: "1px solid rgba(74,222,128,0.4)",
               borderRadius: 2,
             }}
@@ -83,8 +84,8 @@ function ExperienceItem({ exp }: { exp: Experience }) {
       </header>
 
       <p
-        className="text-[12px] mb-5"
-        style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+        className="text-[13px] mb-5"
+        style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 500 }}
       >
         {dates}
       </p>
@@ -96,8 +97,8 @@ function ExperienceItem({ exp }: { exp: Experience }) {
             <li key={i} className="flex items-start gap-3">
               <TriangleBullet />
               <span
-                className="text-[14px] leading-[1.55]"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)" }}
+                className="text-[15px] md:text-[16px] leading-[1.65]"
+                style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
               >
                 {b}
               </span>

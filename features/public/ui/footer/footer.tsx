@@ -8,15 +8,15 @@ const FOOTER_LINKS = [
   { label: "projects", href: "/projects" },
   { label: "experience", href: "/experience" },
   { label: "blog", href: "/blog" },
-  { label: "experiments", href: "/experiments" },
-  { label: "awards", href: "/awards" },
+  //{ label: "experiments", href: "/experiments" },
+  // { label: "awards", href: "/awards" },
   { label: "board", href: "/board" },
   { label: "about", href: "/about" },
 ];
 
 const SOCIAL = [
-  { label: "github", href: "https://github.com/devferanmi" },
-  { label: "linkedin", href: "https://www.linkedin.com/in/oluwaferanmi-adeniji/" },
+  { label: "github", href: "https://github.com/spiderocious" },
+  { label: "linkedin", href: "https://www.inkedin.com/in/oluwaferanmi-adeniji-aba341179/" },
   { label: "email", href: "mailto:devferanmi@gmail.com" },
 ];
 
@@ -127,7 +127,7 @@ export function Footer() {
             animate={{ opacity: [0.55, 1, 0.55] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
           >
-            built in lagos
+            built in Ogbomoso
           </motion.span>
         </div>
 

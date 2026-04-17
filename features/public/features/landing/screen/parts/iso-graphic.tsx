@@ -38,9 +38,9 @@ export function IsoGraphic() {
         </g>
 
         {/* Label chips */}
-        <LabelChip x={120} y={90} text="WEB3" />
-        <LabelChip x={100} y={180} text="DESIGN" />
-        <LabelChip x={80} y={245} text="WEB2" />
+        <LabelChip x={120} y={90} text="Frontend" />
+        <LabelChip x={100} y={180} text="Backend" />
+        <LabelChip x={80} y={245} text="Mobile" />
 
         {/* Isometric stacked tower on the right */}
         <g transform="translate(360 90)">

@@ -25,7 +25,7 @@ export async function BlogScreen() {
       <PageHeader
         path="/blog"
         title="blog"
-        subtitle="essays, notes, and write-ups. pulled live from hashnode, indexed here."
+        subtitle="essays, notes, and write-ups. Battle-tested Coding patterns, Javascript wizardry, System Design, Product Engineering and Management, and architectural secrets."
         count={posts.length}
         countLabel={posts.length === 1 ? "post" : "posts"}
       />

@@ -31,8 +31,8 @@ export function PageHeader({ path, title, subtitle, count, countLabel }: PageHea
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-[11px] tracking-[0.25em] uppercase mb-4"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+          className="text-[13px] tracking-[0.25em] uppercase mb-5"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 600 }}
         >
           <span style={{ color: "#4ade80" }}>$</span> cat {path}
         </motion.p>
@@ -42,7 +42,7 @@ export function PageHeader({ path, title, subtitle, count, countLabel }: PageHea
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.1 }}
-            className="text-[clamp(2.2rem,5vw,3.5rem)] leading-[1.02] tracking-tight"
+            className="text-[clamp(3rem,7vw,5rem)] leading-[1.02] tracking-tight"
             style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}
           >
             {title}
@@ -53,8 +53,8 @@ export function PageHeader({ path, title, subtitle, count, countLabel }: PageHea
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-[12px] tabular-nums tracking-[0.15em] uppercase pb-2"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)" }}
+              className="text-[14px] tabular-nums tracking-[0.15em] uppercase pb-2"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 600 }}
             >
               [{count.toString().padStart(2, "0")}{countLabel ? ` ${countLabel}` : ""}]
             </motion.span>
@@ -66,8 +66,8 @@ export function PageHeader({ path, title, subtitle, count, countLabel }: PageHea
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.25 }}
-            className="mt-4 text-[14px] max-w-2xl leading-[1.65]"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)" }}
+            className="mt-5 text-[16px] md:text-[17px] max-w-2xl leading-[1.7]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
           >
             {subtitle}
           </motion.p>

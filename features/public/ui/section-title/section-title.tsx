@@ -13,15 +13,15 @@ export function SectionTitle({ label, href }: { label: string; href?: string }) 
   const hex = (
     <HexFrame interactive={!!href}>
       <span
-        className="text-[13px] md:text-[14px] tracking-wide"
-        style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}
+        className="text-[15px] md:text-[16px] tracking-wide"
+        style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
       >
         {label}
       </span>
       {href && (
         <span
-          className="text-[11px] tracking-[0.15em]"
-          style={{ color: "var(--ink-4)", fontFamily: "var(--font-mono)" }}
+          className="text-[13px] tracking-[0.15em]"
+          style={{ color: "var(--ink-3)", fontFamily: "var(--font-mono)" }}
           aria-hidden
         >
           →
@@ -67,7 +67,7 @@ function HexFrame({
 }) {
   return (
     <div
-      className="relative px-8 py-2.5"
+      className="relative px-9 py-3"
       style={{
         background: "var(--bg)",
         clipPath:

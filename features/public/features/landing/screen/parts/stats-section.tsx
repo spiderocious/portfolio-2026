@@ -48,9 +48,9 @@ export function StatsSection({ stats }: StatsSectionProps) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {tiles.map((t, i) => (
-          <ScrollReveal key={t.key} delay={i * 0.08}>
-            <StatTile {...t} />
+        {tiles.map(({ key, ...tile }, i) => (
+          <ScrollReveal key={key} delay={i * 0.08}>
+            <StatTile {...tile} />
           </ScrollReveal>
         ))}
       </div>

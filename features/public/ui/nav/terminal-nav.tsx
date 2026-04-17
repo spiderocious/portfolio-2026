@@ -57,10 +57,10 @@ export function TerminalNav() {
         }}
       >
         {/* Left — terminal prompt + clock */}
-        <div className="flex items-center gap-4 md:gap-6 text-[13px] md:text-[14px] min-w-0">
+        <div className="flex items-center gap-4 md:gap-6 text-[14px] md:text-[15px] min-w-0" style={{ fontWeight: 500 }}>
           <span
             className="flex items-center gap-1.5 whitespace-nowrap"
-            style={{ color: "var(--ink)" }}
+            style={{ color: "var(--ink)", fontWeight: 600 }}
           >
             <span>nycx@dev</span>
             <span style={{ color: "#4ade80" }}>~</span>
@@ -76,16 +76,17 @@ export function TerminalNav() {
         </div>
 
         {/* Center — primary nav (hidden on small screens) */}
-        <div className="hidden md:flex items-center gap-1 text-[14px]">
+        <div className="hidden md:flex items-center gap-1 text-[15px]">
           {NAV_LINKS.map((link) => {
             const active = isActive(link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative px-3 py-1.5 transition-colors duration-150"
+                className="relative px-3.5 py-2 transition-colors duration-150"
                 style={{
-                  color: active ? "var(--ink)" : "var(--ink-3)",
+                  color: active ? "var(--ink)" : "var(--ink-2)",
+                  fontWeight: active ? 600 : 500,
                   border: active ? "1px dashed #4ade80" : "1px dashed transparent",
                   borderRadius: 2,
                 }}
@@ -100,8 +101,8 @@ export function TerminalNav() {
         <button
           type="button"
           onClick={() => window.dispatchEvent(new CustomEvent("open-llm"))}
-          className="hidden sm:inline text-[14px] transition-colors duration-150 cursor-pointer hover:text-[var(--ink)]"
-          style={{ color: "var(--ink-2)", fontFamily: "var(--font-mono)" }}
+          className="hidden sm:inline text-[15px] transition-colors duration-150 cursor-pointer hover:text-[var(--ink)]"
+          style={{ color: "var(--ink)", fontFamily: "var(--font-mono)", fontWeight: 500 }}
         >
           {CONTACT_LINK.label}
         </button>

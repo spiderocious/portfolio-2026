@@ -17,14 +17,14 @@ const LINKS: ContactLink[] = [
   {
     label: "linkedin",
     handle: "in/oluwaferanmi-adeniji",
-    href: "https://www.linkedin.com/in/oluwaferanmi-adeniji/",
+    href: "https://www.inkedin.com/in/oluwaferanmi-adeniji-aba341179/",
     external: true,
     icon: LinkedInIcon,
   },
   {
     label: "github",
-    handle: "@devferanmi",
-    href: "https://github.com/devferanmi",
+    handle: "@spiderocious",
+    href: "https://github.com/spiderocious",
     external: true,
     icon: GitHubIcon,
   },
@@ -60,8 +60,8 @@ export function ContactSection() {
         >
           {/* Prompt header */}
           <div
-            className="flex items-center gap-2 mb-6 text-[12px]"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)" }}
+            className="flex items-center gap-2 mb-6 text-[14px]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 600 }}
           >
             <span style={{ color: "#4ade80" }}>$</span>
             <span>./reach-me.sh</span>
@@ -74,14 +74,14 @@ export function ContactSection() {
           </div>
 
           <h2
-            className="text-[clamp(1.5rem,3.2vw,2rem)] mb-2"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
+            className="text-[clamp(2rem,4vw,2.75rem)] mb-3 leading-[1.1]"
+            style={{ fontFamily: "var(--font-display)", color: "var(--ink)" }}
           >
             let&apos;s build something.
           </h2>
           <p
-            className="text-[14px] mb-10 max-w-xl"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)" }}
+            className="text-[16px] md:text-[17px] mb-10 max-w-xl leading-[1.7]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
           >
             open for interesting roles, collaborations, or just a chat about what you&apos;re working on.
             fastest replies on email or linkedin.
@@ -127,14 +127,14 @@ function ContactRow({ link, index }: { link: ContactLink; index: number }) {
         </span>
         <div className="min-w-0">
           <p
-            className="text-[10px] tracking-[0.25em] uppercase mb-0.5"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+            className="text-[11px] tracking-[0.25em] uppercase mb-1"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 600 }}
           >
             {label}
           </p>
           <p
-            className="text-[14px] truncate"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}
+            className="text-[15px] md:text-[16px] truncate"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 500 }}
           >
             {handle}
           </p>

@@ -1,29 +1,61 @@
 export const BIO_PARAGRAPHS = [
   "I'm Feranmi — a full-stack engineer based in Lagos, Nigeria. I like building things that sit at the intersection of infrastructure and product: fintech systems that move real money, developer tools that get out of the way, and AI-powered products that feel less like demos and more like tools you reach for.",
-  "My default is to ship fast, then sharpen. I prefer boring tech that composes well — TypeScript, Next.js, Postgres, Supabase — and I reach for the fancy stuff only when it earns its keep. I care a lot about product surface area, performance budgets, and interfaces that don't make you feel stupid.",
+  "My default is to ship fast, then sharpen. I prefer boring tech that composes well — TypeScript, Next.js, Postgres — and I reach for the fancy stuff only when it earns its keep. I care a lot about product surface area, performance budgets, and interfaces that don't make you feel stupid.",
   "When I'm not coding, I'm usually writing, reading, or playing with SVG and motion for fun. I take ideas seriously; I don't take myself that seriously.",
 ];
 
+/**
+ * Real skills — sourced from 2025/portfolio-new/src/app/components/content/index.tsx
+ * Grouped to read well in the 2×2 lattice on /about.
+ */
 export const SKILL_GROUPS: Array<{ title: string; tags: string[] }> = [
   {
-    title: "frontend",
-    tags: ["TypeScript", "React", "Next.js", "Tailwind", "Motion", "SVG"],
+    title: "Languages & Frontend",
+    tags: [
+      "TypeScript",
+      "JavaScript",
+      "HTML/CSS",
+      "SQL",
+      "React",
+      "Next.js",
+      "Vue",
+      "Angular",
+      "Vite",
+      "Webpack",
+      "Microfrontends",
+    ],
   },
   {
-    title: "backend",
-    tags: ["Node", "tRPC", "GraphQL", "PostgreSQL", "Supabase", "Hono", "Python", "FastAPI"],
+    title: "Backend & Infrastructure",
+    tags: [
+      "Node.js",
+      "Express",
+      "GCP",
+      "Docker",
+      "Jenkins",
+      "Apache Kafka",
+      "CI/CD",
+    ],
   },
   {
-    title: "infrastructure",
-    tags: ["Docker", "Linux", "CI/CD", "Cloudflare", "AWS", "Vercel", "Netlify"],
+    title: "Databases & Caching",
+    tags: ["MongoDB", "MySQL", "PostgreSQL", "Redis"],
   },
   {
-    title: "web3",
-    tags: ["Solidity", "Foundry", "EVM", "Ethers.js", "Chainlink"],
-  },
-  {
-    title: "tools",
-    tags: ["Git", "Neovim", "Figma", "Bruno", "Postman", "Notion"],
+    title: "Tools, AI & Domain",
+    tags: [
+      "Storybook",
+      "Jest",
+      "Nx Monorepo",
+      "Git",
+      "Agile/Scrum",
+      "Code Review",
+      "Claude AI",
+      "Fintech Systems",
+      "Loan Management",
+      "Payment Processing",
+      "KYC/Compliance",
+    ],
   },
 ];
 

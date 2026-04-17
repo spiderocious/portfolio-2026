@@ -13,8 +13,8 @@ export function SectionLabel({ children, withDash = true, align = "left" }: Sect
       style={{ fontFamily: "var(--font-mono)" }}
     >
       <span
-        className="text-[11px] tracking-[0.25em] uppercase whitespace-nowrap"
-        style={{ color: "var(--ink-3)" }}
+        className="text-[12.5px] md:text-[13px] tracking-[0.25em] uppercase whitespace-nowrap"
+        style={{ color: "var(--ink-2)", fontWeight: 600 }}
       >
         {children}
       </span>

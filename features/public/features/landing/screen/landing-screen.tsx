@@ -78,7 +78,6 @@ export async function LandingScreen() {
           <ExperienceSection experience={experience} />
           <BlogsSection posts={posts} />
           <StatsSection stats={stats} />
-          <ActivitySection activity={activity} />
           <BoardSection board={board} />
           <ContactSection />
           <Footer />
