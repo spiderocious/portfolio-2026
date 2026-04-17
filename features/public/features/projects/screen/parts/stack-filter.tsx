@@ -41,10 +41,11 @@ function FilterPill({
     <motion.button
       onClick={onClick}
       whileTap={{ scale: 0.96 }}
-      className="relative px-3 py-1.5 text-[11px] tracking-wide whitespace-nowrap shrink-0 cursor-pointer"
+      className="relative px-3.5 py-2 text-[13px] tracking-wide whitespace-nowrap shrink-0 cursor-pointer"
       style={{
         fontFamily: "var(--font-mono)",
-        color: isActive ? "var(--bg)" : "var(--ink-2)",
+        color: isActive ? "var(--bg)" : "var(--ink)",
+        fontWeight: isActive ? 600 : 500,
         background: isActive ? "var(--ink)" : "transparent",
         border: `1px dashed ${isActive ? "var(--ink)" : "var(--border)"}`,
         borderRadius: 2,

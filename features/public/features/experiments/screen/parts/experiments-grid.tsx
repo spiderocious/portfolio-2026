@@ -31,10 +31,11 @@ export function ExperimentsGrid({ experiments }: { experiments: Experiment[] }) 
             type="button"
             onClick={() => setFilter(s.value)}
             whileTap={{ scale: 0.96 }}
-            className="px-3 py-1.5 text-[11px] tracking-wide whitespace-nowrap shrink-0 cursor-pointer"
+            className="px-3.5 py-2 text-[13px] tracking-wide whitespace-nowrap shrink-0 cursor-pointer"
             style={{
               fontFamily: "var(--font-mono)",
-              color: filter === s.value ? "var(--bg)" : "var(--ink-2)",
+              color: filter === s.value ? "var(--bg)" : "var(--ink)",
+              fontWeight: filter === s.value ? 600 : 500,
               background: filter === s.value ? "var(--ink)" : "transparent",
               border: `1px dashed ${filter === s.value ? "var(--ink)" : "var(--border)"}`,
               borderRadius: 2,

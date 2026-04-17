@@ -74,10 +74,11 @@ function Pill({
       type="button"
       onClick={onClick}
       whileTap={{ scale: 0.96 }}
-      className="px-3 py-1.5 text-[11px] tracking-wide whitespace-nowrap shrink-0 cursor-pointer"
+      className="px-3.5 py-2 text-[13px] tracking-wide whitespace-nowrap shrink-0 cursor-pointer"
       style={{
         fontFamily: "var(--font-mono)",
-        color: active ? "var(--bg)" : "var(--ink-2)",
+        color: active ? "var(--bg)" : "var(--ink)",
+        fontWeight: active ? 600 : 500,
         background: active ? "var(--ink)" : "transparent",
         border: `1px dashed ${active ? "var(--ink)" : "var(--border)"}`,
         borderRadius: 2,
