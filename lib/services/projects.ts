@@ -1,5 +1,5 @@
 import { revalidatePath } from "next/cache";
-import { getDb } from "@/lib/db";
+import { getDb, getBuildDb } from "@/lib/db";
 import type { Project, CreateProjectInput, UpdateProjectInput, ReorderItem, VoidResult } from "./types";
 
 const FIELDS = "id, title, slug, description, status, stack, cover_image, links, live_data, featured, position, created_at, updated_at";
@@ -8,6 +8,16 @@ export async function getAllProjects(): Promise<Project[]> {
   const db = await getDb();
   const { data } = await db.from("projects").select(FIELDS).order("position", { ascending: true });
   return (data as unknown as Project[]) ?? [];
+}
+
+/**
+ * Build-time variant — uses the cookie-free client so it can run inside
+ * `generateStaticParams` during static export.
+ */
+export async function getAllProjectSlugsForBuild(): Promise<Array<{ slug: string }>> {
+  const db = getBuildDb();
+  const { data } = await db.from("projects").select("slug").order("position", { ascending: true });
+  return ((data as unknown as Array<{ slug: string }>) ?? []).filter((r) => !!r.slug);
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {

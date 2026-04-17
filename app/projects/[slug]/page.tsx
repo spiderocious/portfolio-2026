@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { getProjectBySlug, getAllProjects } from "@/lib/services/projects";
+import { getProjectBySlug, getAllProjectSlugsForBuild } from "@/lib/services/projects";
 import { ProjectDetailScreen } from "@/features/public/features/projects/screen/project-detail-screen";
 
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const projects = await getAllProjects();
-  return projects.map((p) => ({ slug: p.slug }));
+  return getAllProjectSlugsForBuild();
 }
 
 export async function generateMetadata({

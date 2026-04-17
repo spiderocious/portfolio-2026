@@ -25,7 +25,7 @@ export function BlogGrid({ posts }: { posts: HashnodePost[] }) {
       {tags.length > 0 && (
         <div className="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-1 px-1">
           <Pill active={active === null} onClick={() => setActive(null)} label="all" />
-          {tags.map((t) => (
+          {tags.splice(0, 7).map((t) => (
             <Pill
               key={t.slug}
               active={active === t.slug}

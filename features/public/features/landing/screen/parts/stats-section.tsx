@@ -105,8 +105,8 @@ function StatTile({ label, value, hint, icon: Icon }: StatTileProps) {
       </div>
 
       <p
-        className="text-[12px]"
-        style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)" }}
+        className="text-[14px]"
+        style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
       >
         {hint}
       </p>

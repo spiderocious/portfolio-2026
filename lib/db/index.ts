@@ -14,4 +14,5 @@
 
 export { getDb } from "./server";
 export { getBrowserDb } from "./browser";
+export { getBuildDb } from "./build";
 export type { Db } from "./server";

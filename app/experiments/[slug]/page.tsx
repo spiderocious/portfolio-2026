@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { getExperimentBySlug, getAllExperiments } from "@/lib/services/experiments";
+import { getExperimentBySlug, getAllExperimentSlugsForBuild } from "@/lib/services/experiments";
 import { ExperimentDetailScreen } from "@/features/public/features/experiments/screen/experiment-detail-screen";
 
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const experiments = await getAllExperiments();
-  return experiments.map((e) => ({ slug: e.slug }));
+  return getAllExperimentSlugsForBuild();
 }
 
 export async function generateMetadata({

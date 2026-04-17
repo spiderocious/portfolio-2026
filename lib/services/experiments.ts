@@ -1,5 +1,5 @@
 import { revalidatePath } from "next/cache";
-import { getDb } from "@/lib/db";
+import { getDb, getBuildDb } from "@/lib/db";
 import type { Experiment, CreateExperimentInput, UpdateExperimentInput, VoidResult } from "./types";
 
 const FIELDS = "id, title, slug, description, status, stack, links, cover_image, featured, position, created_at, updated_at";
@@ -8,6 +8,13 @@ export async function getAllExperiments(): Promise<Experiment[]> {
   const db = await getDb();
   const { data } = await db.from("experiments").select(FIELDS).order("position", { ascending: true });
   return (data as unknown as Experiment[]) ?? [];
+}
+
+/** Build-time variant — no cookies. Safe to call from `generateStaticParams`. */
+export async function getAllExperimentSlugsForBuild(): Promise<Array<{ slug: string }>> {
+  const db = getBuildDb();
+  const { data } = await db.from("experiments").select("slug").order("position", { ascending: true });
+  return ((data as unknown as Array<{ slug: string }>) ?? []).filter((r) => !!r.slug);
 }
 
 export async function getExperimentBySlug(slug: string): Promise<Experiment | null> {

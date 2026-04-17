@@ -34,7 +34,7 @@ export function PageHeader({ path, title, subtitle, count, countLabel }: PageHea
           className="text-[13px] tracking-[0.25em] uppercase mb-5"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 600 }}
         >
-          <span style={{ color: "#4ade80" }}>$</span> cat {path}
+          <span style={{ color: "#4ade80" }}>$</span> DEVFERANMI {path}
         </motion.p>
 
         <div className="flex items-end justify-between gap-6 flex-wrap">

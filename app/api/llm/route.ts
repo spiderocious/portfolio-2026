@@ -81,8 +81,10 @@ export async function POST(req: NextRequest) {
 
     const effectivePrompt = prompt ||
       "You are Feranmi's portfolio assistant. Answer questions about his work, experience, and projects warmly and concisely.";
+    
+    const promptWithDate = `${effectivePrompt}\n\nCurrent date: ${new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}`;
 
-    const sourceStream = await streamChatResponse(history, effectivePrompt);
+    const sourceStream = await streamChatResponse(history, promptWithDate);
 
     // Tee the stream so we can collect the full assistant response and persist it
     let full = "";

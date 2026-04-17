@@ -16,7 +16,7 @@ export function StackFilter({ tags, active, onChange }: StackFilterProps) {
         isActive={active === null}
         onClick={() => onChange(null)}
       />
-      {tags.map((tag) => (
+      {tags?.splice(0,7).map((tag) => (
         <FilterPill
           key={tag}
           label={tag}
