@@ -98,7 +98,6 @@ function MarkdownPreview({ content }: { content: string }) {
         </h1>
       );
     } else if (line.startsWith("```")) {
-      const lang = line.slice(3).trim();
       const codeLines: string[] = [];
       i++;
       while (i < lines.length && !lines[i].startsWith("```")) {

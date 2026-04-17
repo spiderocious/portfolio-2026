@@ -183,7 +183,6 @@ function LineChart({
 
   const max = Math.max(...data.map((d) => d.count));
   const min = 0;
-  const w = 100;
   const h = height - 24;
 
   const points = data.map((d, i) => {
@@ -254,7 +253,6 @@ function LineChart({
 
 function DataTable({
   title,
-  cols,
   rows,
 }: {
   title: string;

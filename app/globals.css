@@ -32,24 +32,24 @@
 }
 
 .dark {
-  --bg:           #0F0E0C;
-  --bg-alt:       #161410;
-  --bg-raised:    #1C1A17;
-  --surface:      #232018;
-  --border:       #2E2B26;
-  --border-soft:  #252320;
+  --bg:           #000000;
+  --bg-alt:       #070706;
+  --bg-raised:    #0C0C0B;
+  --surface:      #111110;
+  --border:       #2F2E2B;
+  --border-soft:  #1E1D1B;
 
-  --ink:          #F0EBE3;
-  --ink-2:        #C8C2B8;
-  --ink-3:        #8A8278;
-  --ink-4:        #5A5450;
+  --ink:          #F7F4EE;
+  --ink-2:        #E8E4DB;
+  --ink-3:        #B8B2A7;
+  --ink-4:        #7A7469;
 
   --accent:       #F0EBE3;
   --accent-warm:  #C87941;
-  --tag-bg:       #252320;
-  --tag-text:     #C8C2B8;
+  --tag-bg:       #0E0E0D;
+  --tag-text:     #E8E4DB;
 
-  --grain-opacity: 0.06;
+  --grain-opacity: 0;
 
   color-scheme: dark;
 }
@@ -107,6 +107,116 @@ h1, h2, h3, h4, h5, h6 {
 ::selection {
   background: var(--ink);
   color: var(--bg);
+}
+
+/* ─── Hashnode post body styles ──────────────────────────────────────── */
+.hashnode-body {
+  font-family: var(--font-mono);
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.8;
+}
+.hashnode-body > * + * { margin-top: 1.1em; }
+.hashnode-body h1,
+.hashnode-body h2,
+.hashnode-body h3,
+.hashnode-body h4 {
+  font-family: var(--font-mono);
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+.hashnode-body h1 { font-size: 28px; }
+.hashnode-body h2 { font-size: 22px; }
+.hashnode-body h3 { font-size: 18px; }
+.hashnode-body h4 { font-size: 16px; }
+.hashnode-body p { color: var(--ink-2); }
+.hashnode-body strong { color: var(--ink); font-weight: 700; }
+.hashnode-body a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.hashnode-body ul,
+.hashnode-body ol { padding-left: 1.2em; color: var(--ink-2); }
+.hashnode-body li { margin: 0.25em 0; }
+.hashnode-body blockquote {
+  padding-left: 1em;
+  border-left: 2px solid var(--ink-4);
+  color: var(--ink-3);
+  font-style: italic;
+}
+.hashnode-body pre {
+  font-family: var(--font-mono);
+  background: var(--bg-alt);
+  border: 1px dashed var(--border);
+  border-radius: 2px;
+  padding: 1em;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.hashnode-body code {
+  font-family: var(--font-mono);
+  background: var(--bg-alt);
+  border: 1px solid var(--border-soft);
+  border-radius: 2px;
+  padding: 0.1em 0.4em;
+  font-size: 13px;
+  color: var(--ink);
+}
+.hashnode-body pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+.hashnode-body img {
+  max-width: 100%;
+  height: auto;
+  border: 1px dashed var(--border);
+  border-radius: 2px;
+}
+.hashnode-body hr {
+  border: 0;
+  border-top: 1px dashed var(--border);
+  margin: 2em 0;
+}
+.hashnode-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.hashnode-body th,
+.hashnode-body td {
+  text-align: left;
+  padding: 0.55em 0.75em;
+  border-bottom: 1px solid var(--border-soft);
+}
+.hashnode-body th { color: var(--ink); font-weight: 600; }
+
+/* ─── Public Mesh Background (diagonal pinstripe) ────────────────────── */
+.public-mesh {
+  background-color: var(--bg);
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0,
+    transparent 11px,
+    rgba(255, 255, 255, 0.022) 11px,
+    rgba(255, 255, 255, 0.022) 12px
+  );
+}
+
+:root:not(.dark) .public-mesh {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0,
+    transparent 11px,
+    rgba(0, 0, 0, 0.025) 11px,
+    rgba(0, 0, 0, 0.025) 12px
+  );
 }
 
 /* ─── Admin Utilities ────────────────────────────────────────────────── */

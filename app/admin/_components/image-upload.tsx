@@ -47,6 +47,7 @@ export function ImageUpload({ value, onChange, onUpload, height = 120, square = 
   if (value) {
     return (
       <div className="relative rounded overflow-hidden border border-[#2a2a2a]" style={{ height }}>
+         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={value}
           alt="uploaded"

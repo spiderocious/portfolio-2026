@@ -28,7 +28,6 @@ export function SystemContextListClient({ entries, categoryBadge }: Props) {
   }
 
   const activeEntries = entries.filter((e) => e.is_active);
-  const assembled = activeEntries.map((e) => e.content).join("\n\n");
 
   return (
     <div className="flex flex-col gap-4">

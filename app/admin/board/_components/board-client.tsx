@@ -11,7 +11,6 @@ import {
   updateBoardItemAction,
   deleteBoardItemAction,
   createSubItemAction,
-  updateSubItemAction,
   deleteSubItemAction,
 } from "../actions";
 import { inputCls, selectCls } from "../../_components/input-cls";

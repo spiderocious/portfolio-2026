@@ -1,5 +1,5 @@
 import { getDb } from "@/lib/db";
-import type { Conversation, LlmMessage, OpenAIMessage, VoidResult } from "./types";
+import type { Conversation, LlmMessage, OpenAIMessage } from "./types";
 
 export async function getAllConversations(): Promise<Conversation[]> {
   const db = await getDb();

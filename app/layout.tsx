@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeScript } from "@/components/theme-script";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LlmPopupMount } from "@/features/public/ui/llm-popup/llm-popup-mount";
 
 export const metadata: Metadata = {
   title: "Feranmi Adeniji",
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ThemeProvider>
           <ThemeToggle />
           {children}
+          <LlmPopupMount />
         </ThemeProvider>
       </body>
     </html>
