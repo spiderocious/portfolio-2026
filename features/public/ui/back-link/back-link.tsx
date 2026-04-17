@@ -12,8 +12,8 @@ export function BackLink({ href, label = "back" }: { href: string; label?: strin
     >
       <Link
         href={href}
-        className="group inline-flex items-center gap-2 text-[12px] tracking-[0.15em] uppercase"
-        style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)" }}
+        className="group inline-flex items-center gap-2 text-[13px] tracking-[0.15em] uppercase"
+        style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 600 }}
       >
         <motion.span
           className="inline-block"

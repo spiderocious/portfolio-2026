@@ -30,20 +30,20 @@ export function PersonalTimeline() {
               aria-hidden
             />
             <p
-              className="text-[10px] tracking-[0.25em] uppercase mb-1"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+              className="text-[11px] tracking-[0.25em] uppercase mb-1.5"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 600 }}
             >
               {item.year}
             </p>
             <p
-              className="text-[15px] mb-1"
+              className="text-[17px] md:text-[18px] mb-1.5"
               style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
             >
               {item.label}
             </p>
             <p
-              className="text-[13px] leading-[1.6]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)" }}
+              className="text-[14px] md:text-[15px] leading-[1.7]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
             >
               {item.detail}
             </p>

@@ -51,8 +51,8 @@ export function BlogListCard({ post, index }: { post: HashnodePost; index: numbe
 
         <div className="p-5 md:p-6 flex flex-col gap-3 flex-1">
           <div
-            className="flex items-center gap-3 text-[10px] tracking-[0.2em] uppercase"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+            className="flex items-center gap-3 text-[12px] tracking-[0.2em] uppercase"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 600 }}
           >
             <span>{date}</span>
             <span>·</span>
@@ -60,15 +60,15 @@ export function BlogListCard({ post, index }: { post: HashnodePost; index: numbe
           </div>
 
           <h3
-            className="text-[18px] md:text-[19px] leading-[1.3]"
+            className="text-[20px] md:text-[22px] leading-[1.3]"
             style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
           >
             {post.title}
           </h3>
 
           <p
-            className="text-[13px] leading-[1.6] line-clamp-3"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)" }}
+            className="text-[15px] md:text-[16px] leading-[1.7] line-clamp-3"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
           >
             {post.brief}
           </p>

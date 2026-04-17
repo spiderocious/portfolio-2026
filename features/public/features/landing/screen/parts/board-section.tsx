@@ -77,15 +77,15 @@ function BoardColumn({
     >
       <header className="flex items-center justify-between pb-2" style={{ borderBottom: "1px dashed var(--border-soft)" }}>
         <span
-          className="flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)" }}
+          className="flex items-center gap-2 text-[13px] tracking-[0.2em] uppercase"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
         >
           <StatusDot status={status} />
           {label}
         </span>
         <span
-          className="text-[10px] tabular-nums"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+          className="text-[12px] tabular-nums"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 600 }}
         >
           {items.length.toString().padStart(2, "0")}
         </span>
@@ -122,10 +122,11 @@ function BoardCard({ item }: { item: BoardItem }) {
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <span
-          className="text-[9px] tracking-[0.25em] uppercase px-1.5 py-0.5"
+          className="text-[10px] tracking-[0.25em] uppercase px-2 py-0.5"
           style={{
             fontFamily: "var(--font-mono)",
             color: catColor,
+            fontWeight: 600,
             border: `1px solid ${catColor}40`,
             borderRadius: 2,
           }}
@@ -134,16 +135,16 @@ function BoardCard({ item }: { item: BoardItem }) {
         </span>
         {item.priority === "high" && (
           <span
-            className="text-[9px] tracking-[0.2em]"
-            style={{ fontFamily: "var(--font-mono)", color: "#f87171" }}
+            className="text-[10px] tracking-[0.2em]"
+            style={{ fontFamily: "var(--font-mono)", color: "#f87171", fontWeight: 700 }}
           >
             HIGH
           </span>
         )}
       </div>
       <p
-        className="text-[13px] leading-[1.4] line-clamp-3"
-        style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}
+        className="text-[14px] md:text-[15px] leading-[1.45] line-clamp-3"
+        style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
       >
         {item.title}
       </p>

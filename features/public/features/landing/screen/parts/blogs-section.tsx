@@ -13,6 +13,7 @@ interface BlogsSectionProps {
 }
 
 export function BlogsSection({ posts }: BlogsSectionProps) {
+  console.log("Rendering BlogsSection with posts:", posts);
   return (
     <section className="px-6 md:px-10 lg:px-12 pb-16">
       <SectionTitle label="/blogs" href="/blog" />
@@ -25,7 +26,7 @@ export function BlogsSection({ posts }: BlogsSectionProps) {
         <EmptyState />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {posts.map((post, i) => (
+          {(posts ?? []).map((post, i) => (
             <ScrollReveal key={post.id} delay={i * 0.06}>
               <BlogCard post={post} />
             </ScrollReveal>

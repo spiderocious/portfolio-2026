@@ -70,29 +70,29 @@ function ActivityRow({ item, last }: { item: ActivityEntry; last: boolean }) {
       <div className="flex-1 min-w-0">
         <div className="flex flex-wrap items-baseline justify-between gap-3">
           <p
-            className="text-[14px] leading-[1.4] truncate max-w-[60ch]"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}
+            className="text-[15px] md:text-[16px] leading-[1.45] truncate max-w-[60ch]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
           >
             {item.title}
           </p>
           <span
-            className="text-[11px] tracking-wide whitespace-nowrap"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+            className="text-[12px] tracking-wide whitespace-nowrap"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 500 }}
           >
             {when}
           </span>
         </div>
         {item.description && (
           <p
-            className="text-[13px] mt-1 line-clamp-1"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)" }}
+            className="text-[14px] mt-1 line-clamp-1"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
           >
             {item.description}
           </p>
         )}
         <p
-          className="text-[10px] mt-1 tracking-[0.2em] uppercase"
-          style={{ fontFamily: "var(--font-mono)", color }}
+          className="text-[11px] mt-1.5 tracking-[0.2em] uppercase"
+          style={{ fontFamily: "var(--font-mono)", color, fontWeight: 600 }}
         >
           {labelForType(item.type)}
         </p>

@@ -6,8 +6,9 @@ export function EmptyState({ children }: { children: React.ReactNode }) {
         border: "1px dashed var(--border)",
         borderRadius: 2,
         fontFamily: "var(--font-mono)",
-        color: "var(--ink-3)",
-        fontSize: 13,
+        color: "var(--ink-2)",
+        fontSize: 15,
+        fontWeight: 500,
       }}
     >
       {children}

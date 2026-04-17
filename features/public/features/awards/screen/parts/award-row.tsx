@@ -45,24 +45,24 @@ export function AwardRow({ award, index }: { award: Award; index: number }) {
           )}
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-4 flex-wrap mb-1">
+            <div className="flex items-start justify-between gap-4 flex-wrap mb-1.5">
               <h3
-                className="text-[17px] md:text-[18px]"
+                className="text-[19px] md:text-[21px]"
                 style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
               >
                 {award.title}
-                {award.url && <span className="ml-2 text-[13px] opacity-50">↗</span>}
+                {award.url && <span className="ml-2 text-[14px] opacity-60">↗</span>}
               </h3>
               <span
-                className="text-[11px] tracking-[0.2em] uppercase whitespace-nowrap"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+                className="text-[12px] tracking-[0.2em] uppercase whitespace-nowrap"
+                style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 600 }}
               >
                 {date}
               </span>
             </div>
             <p
-              className="text-[13px] mb-3"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)" }}
+              className="text-[14px] md:text-[15px] mb-3"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
             >
               {award.issuer}
             </p>

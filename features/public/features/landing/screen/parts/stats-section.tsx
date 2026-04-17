@@ -86,14 +86,14 @@ function StatTile({ label, value, hint, icon: Icon }: StatTileProps) {
       </span>
 
       <p
-        className="text-[10px] tracking-[0.25em] uppercase mb-4"
-        style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+        className="text-[12px] tracking-[0.25em] uppercase mb-4"
+        style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 600 }}
       >
         {label}
       </p>
 
       <div
-        className="text-[44px] md:text-[52px] leading-none tabular-nums mb-3"
+        className="text-[52px] md:text-[64px] leading-none tabular-nums mb-3"
         style={{
           fontFamily: "var(--font-mono)",
           color: "var(--ink)",

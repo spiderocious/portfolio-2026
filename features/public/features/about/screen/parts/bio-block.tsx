@@ -13,8 +13,8 @@ export function BioBlock() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.55, delay: i * 0.08 }}
-          className="text-[15px] md:text-[16px] leading-[1.8]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)" }}
+          className="text-[17px] md:text-[18px] leading-[1.85]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
         >
           {p}
         </motion.p>

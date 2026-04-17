@@ -40,16 +40,16 @@ export function ExperimentCard({ experiment, index }: { experiment: Experiment; 
       >
         <div className="flex items-center justify-between">
           <span
-            className="inline-flex items-center gap-1.5 text-[9px] tracking-[0.25em] uppercase"
-            style={{ fontFamily: "var(--font-mono)", color }}
+            className="inline-flex items-center gap-1.5 text-[11px] tracking-[0.25em] uppercase"
+            style={{ fontFamily: "var(--font-mono)", color, fontWeight: 600 }}
           >
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: color }} />
             {experiment.status}
           </span>
           {experiment.featured && (
             <span
-              className="text-[9px] tracking-[0.25em] uppercase"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+              className="text-[11px] tracking-[0.25em] uppercase"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ink-3)", fontWeight: 600 }}
             >
               featured
             </span>
@@ -57,7 +57,7 @@ export function ExperimentCard({ experiment, index }: { experiment: Experiment; 
         </div>
 
         <h3
-          className="text-[17px] leading-[1.3]"
+          className="text-[19px] md:text-[20px] leading-[1.3]"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ink)", fontWeight: 600 }}
         >
           {experiment.title}
@@ -65,8 +65,8 @@ export function ExperimentCard({ experiment, index }: { experiment: Experiment; 
 
         {firstLine && (
           <p
-            className="text-[13px] leading-[1.6] flex-1"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)" }}
+            className="text-[15px] leading-[1.65] flex-1"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-2)", fontWeight: 500 }}
           >
             {firstLine}
           </p>

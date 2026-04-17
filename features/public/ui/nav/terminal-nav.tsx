@@ -62,7 +62,7 @@ export function TerminalNav() {
             className="flex items-center gap-1.5 whitespace-nowrap"
             style={{ color: "var(--ink)", fontWeight: 600 }}
           >
-            <span>nycx@dev</span>
+            <span>devferanmi.xyz</span>
             <span style={{ color: "#4ade80" }}>~</span>
             <span style={{ color: "var(--ink-3)" }}>$</span>
           </span>
