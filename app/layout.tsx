@@ -76,7 +76,6 @@ export const metadata: Metadata = {
     apple: [{ url: "/feranmi.png", sizes: "180x180", type: "image/png" }],
     shortcut: ["/icon.png"],
   },
-  manifest: "/manifest.webmanifest",
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
     other: {

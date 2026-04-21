@@ -194,7 +194,7 @@ export function LlmPopup({ defaultOpen = false }: { defaultOpen?: boolean }) {
               className="flex-1 overflow-y-auto"
               style={{ background: "var(--bg)" }}
             >
-              <div className="mx-auto w-full max-w-[760px] px-4 md:px-6 py-6 md:py-10">
+              <div className="mx-auto w-full max-w-[760px] px-4 md:px-6 py-6 md:py-10 pb-[500px]">
                 {hasMessages ? (
                   <ul className="flex flex-col gap-6">
                     {messages.map((m) => (
@@ -208,22 +208,7 @@ export function LlmPopup({ defaultOpen = false }: { defaultOpen?: boolean }) {
                 ) : (
                   <EmptyState onPick={(q) => send(q)} />
                 )}
-              </div>
-            </div>
-
-            {error && (
-              <p
-                className="mx-auto w-full max-w-[760px] px-4 md:px-6 py-2 text-[12px]"
-                style={{
-                  color: "#f87171",
-                  background: "var(--bg)",
-                }}
-              >
-                {error}
-              </p>
-            )}
-
-            {/* Suggestions above input (ChatGPT-style "keep the conversation going") */}
+                            {/* Suggestions above input (ChatGPT-style "keep the conversation going") */}
             <AnimatePresence>
               {hasMessages && !streaming && suggestions.length > 0 && (
                 <motion.div
@@ -232,7 +217,7 @@ export function LlmPopup({ defaultOpen = false }: { defaultOpen?: boolean }) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 6 }}
                   transition={{ duration: 0.25 }}
-                  className="border-t"
+                  className="border-t mt-10"
                   style={{
                     borderColor: "var(--border-soft)",
                     background: "var(--bg)",
@@ -269,6 +254,20 @@ export function LlmPopup({ defaultOpen = false }: { defaultOpen?: boolean }) {
                 </motion.div>
               )}
             </AnimatePresence>
+              </div>
+            </div>
+
+            {error && (
+              <p
+                className="mx-auto w-full max-w-[760px] px-4 md:px-6 py-2 text-[12px]"
+                style={{
+                  color: "#f87171",
+                  background: "var(--bg)",
+                }}
+              >
+                {error}
+              </p>
+            )}
 
             {/* Input */}
             <form
