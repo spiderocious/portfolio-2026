@@ -1,7 +1,5 @@
 import { getFeaturedProjects } from "@/lib/services/projects";
 import { getAllExperience } from "@/lib/services/experience";
-import { getPublicStats } from "@/lib/services/stats";
-import { getRecentActivity } from "@/lib/services/activity";
 import { getBoardItems } from "@/lib/services/board";
 import { getPosts } from "@/lib/services/hashnode";
 import type { Project, HashnodePost } from "@/lib/services/types";
@@ -12,7 +10,6 @@ import { Hero } from "./parts/hero";
 import { ProofOfWork } from "./parts/proof-of-work";
 import { ExperienceSection } from "./parts/experience-section";
 import { BlogsSection } from "./parts/blogs-section";
-import { StatsSection } from "./parts/stats-section";
 import { BoardSection } from "./parts/board-section";
 import { ContactSection } from "./parts/contact-section";
 import type { ProjectCardData } from "./parts/project-card";
@@ -47,15 +44,12 @@ async function safeGetPosts(): Promise<HashnodePost[]> {
 }
 
 export async function LandingScreen() {
-  const [featured, experience, stats, board, posts] =
-    await Promise.all([
-      getFeaturedProjects(),
-      getAllExperience(),
-      getPublicStats(),
-      getBoardItems({ includePrivate: false }),
-      safeGetPosts(),
-    ]);
-  console.log("posts", posts);
+  const [featured, experience, board, posts] = await Promise.all([
+    getFeaturedProjects(),
+    getAllExperience(),
+    getBoardItems({ includePrivate: false }),
+    safeGetPosts(),
+  ]);
 
   const cards = featured.map(toCardData);
 
@@ -76,8 +70,8 @@ export async function LandingScreen() {
           <Hero />
           <ProofOfWork projects={cards} />
           <ExperienceSection experience={experience} />
-          {/* <BlogsSection posts={posts} /> */}
-          <StatsSection stats={stats} />
+          <BlogsSection posts={posts} />
+          {/* <StatsSection stats={stats} /> */}
           <BoardSection board={board} />
           <section className="px-6 md:px-10 lg:px-12 pb-16">
             <div className="mb-6">

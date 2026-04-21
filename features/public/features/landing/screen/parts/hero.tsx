@@ -39,22 +39,6 @@ export function Hero() {
           >
             oluwaferanmi adeniji
           </h1>
-          <span
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[12px] tracking-[0.18em] uppercase"
-            style={{
-              fontFamily: "var(--font-mono)",
-              color: "var(--ink)",
-              fontWeight: 600,
-              border: "1px solid var(--border)",
-              background: "var(--bg-raised)",
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: "#4ade80" }}
-            />
-            open to work
-          </span>
         </motion.div>
 
         {/* Description */}
@@ -68,10 +52,11 @@ export function Hero() {
           }}
         >
           I&apos;m a <Bold>Senior Frontend Engineer</Bold> with{" "}
-          <Bold>7+ years</Bold> crafting digital experiences across fintech,
-          ecommerce, and developer tools. I care deeply about performance, clean
+          <Bold>7+ years</Bold> crafting digital experiences across payments,
+          fintech, ecommerce, software as a service, delivery, humanities,
+          health and developer tools. I care deeply about performance, clean
           architecture, and building products that genuinely help people.
-          Currently at <Bold>Moniepoint</Bold>, where I contribute to frontend
+          Currently at <a href="https://moniepoint.com" target="_blank" rel="noopener noreferrer"><Bold>Moniepoint</Bold></a>, where I contribute to frontend
           systems serving 10M+ users and processing $1B+ annually. I also
           maintain open-source libraries like <Bold>Connectic</Bold> and{" "}
           <Bold>Monie Utils</Bold> because building useful things is what gets
