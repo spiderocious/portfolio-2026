@@ -3,6 +3,8 @@ import OpenAI from "openai";
 
 export const runtime = "nodejs";
 
+export { corsPreflight as OPTIONS } from "@/lib/api/cors";
+
 interface Msg {
   role: "user" | "assistant";
   content: string;

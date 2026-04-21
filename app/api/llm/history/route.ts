@@ -5,6 +5,8 @@ import { getMessagesByConversationId } from "@/lib/services/chats";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+export { corsPreflight as OPTIONS } from "@/lib/api/cors";
+
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const sessionId = url.searchParams.get("session_id")?.trim();

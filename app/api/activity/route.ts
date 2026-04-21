@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getActivityFeed } from "@/lib/services/activity";
 import type { ActivityType } from "@/lib/services/types";
 
+export { corsPreflight as OPTIONS } from "@/lib/api/cors";
+
 const VALID_TYPES: ActivityType[] = ["commit", "blog_post", "project_update", "experiment", "note"];
 
 export async function GET(req: NextRequest) {

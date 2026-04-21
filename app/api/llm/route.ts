@@ -10,6 +10,8 @@ import { streamChatResponse } from "@/lib/services/llm";
 
 export const runtime = "nodejs";
 
+export { corsPreflight as OPTIONS } from "@/lib/api/cors";
+
 // ─── Rate limiting (in-memory, per-IP) ────────────────────────────
 const BUCKET = new Map<string, { count: number; reset: number }>();
 const LIMIT = 10;

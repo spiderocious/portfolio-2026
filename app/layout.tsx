@@ -5,6 +5,7 @@ import { ThemeScript } from "@/components/theme-script";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LlmPopupMount } from "@/features/public/ui/llm-popup/llm-popup-mount";
 import { SITE } from "@/lib/seo/config";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -112,6 +113,7 @@ export default function RootLayout({
           <LlmPopupMount />
         </ThemeProvider>
       </body>
+      <Script src="https://scripts.simpleanalyticscdn.com/latest.js"  />
     </html>
   );
 }

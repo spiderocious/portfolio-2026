@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { logPageView, logProjectInteraction, logBlogRead } from "@/lib/services/analytics";
 
+export { corsPreflight as OPTIONS } from "@/lib/api/cors";
+
 type Body =
   | { type: "page_view"; page: string; referrer?: string | null; user_agent?: string | null }
   | {
