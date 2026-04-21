@@ -1,9 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLlmChat, type ChatMessage } from "./use-llm-chat";
 import { LlmTrigger } from "./llm-trigger";
+import Image from "next/image";
 
 const STARTER_SUGGESTIONS = [
   "what's feranmi working on right now?",
@@ -12,8 +19,8 @@ const STARTER_SUGGESTIONS = [
   "is he open to work?",
 ];
 
-export function LlmPopup() {
-  const [open, setOpen] = useState(false);
+export function LlmPopup({ defaultOpen = false }: { defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
   const { messages, streaming, error, suggestions, send, reset } = useLlmChat();
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -136,12 +143,15 @@ export function LlmPopup() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[14px]" style={{ color: "var(--ink)", fontWeight: 600 }}>
+                  <p
+                    className="text-[14px]"
+                    style={{ color: "var(--ink)", fontWeight: 600 }}
+                  >
                     feranmi.ai
                   </p>
                   <p
-                    className="text-[11px] truncate"
-                    style={{ color: "var(--ink-3)" }}
+                    className="text-[12px] truncate font-semibold"
+                    style={{ color: "var(--ink)" }}
                   >
                     {streaming ? "thinking…" : "online · ask anything about me"}
                   </p>
@@ -188,7 +198,11 @@ export function LlmPopup() {
                 {hasMessages ? (
                   <ul className="flex flex-col gap-6">
                     {messages.map((m) => (
-                      <MessageBubble key={m.id} message={m} streaming={streaming} />
+                      <MessageBubble
+                        key={m.id}
+                        message={m}
+                        streaming={streaming}
+                      />
                     ))}
                   </ul>
                 ) : (
@@ -279,7 +293,11 @@ export function LlmPopup() {
                     ref={inputRef}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder={hasMessages ? "reply to feranmi.ai…" : "ask anything about feranmi…"}
+                    placeholder={
+                      hasMessages
+                        ? "reply to feranmi.ai…"
+                        : "ask anything about feranmi…"
+                    }
                     rows={1}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {
@@ -287,7 +305,7 @@ export function LlmPopup() {
                         submit(e);
                       }
                     }}
-                    className="flex-1 resize-none text-[15px] outline-none bg-transparent px-3 py-2.5 min-h-[44px]"
+                    className="flex-1 resize-none text-[15px] outline-none bg-transparent px-3 py-2.5 min-h-11 font-bold"
                     style={{
                       fontFamily: "var(--font-mono)",
                       color: "var(--ink)",
@@ -310,8 +328,8 @@ export function LlmPopup() {
                   </motion.button>
                 </div>
                 <p
-                  className="text-[10.5px] mt-2 text-center"
-                  style={{ color: "var(--ink-4)" }}
+                  className="text-[10.5px] mt-2 text-center font-semibold"
+                  style={{ color: "var(--ink)" }}
                 >
                   enter to send · shift+enter for newline · esc to close
                 </p>
@@ -346,8 +364,8 @@ function MessageBubble({
       <Avatar role={message.role} />
       <div className="flex-1 min-w-0 pt-0.5">
         <p
-          className="text-[11px] tracking-[0.15em] uppercase mb-1.5"
-          style={{ color: "var(--ink-4)" }}
+          className="text-[11px] tracking-[0.15em] uppercase mb-1.5 font-medium"
+          style={{ color: "var(--ink)" }}
         >
           {isUser ? "you" : "feranmi.ai"}
         </p>
@@ -359,7 +377,9 @@ function MessageBubble({
             style={{ color: "var(--ink)" }}
           >
             {message.content}
-            {streaming && !isUser && message.content !== "" && <BlinkingCaret />}
+            {streaming && !isUser && message.content !== "" && (
+              <BlinkingCaret />
+            )}
           </div>
         )}
       </div>
@@ -378,7 +398,21 @@ function Avatar({ role }: { role: "user" | "assistant" }) {
         border: isUser ? "1px solid var(--border-soft)" : "none",
       }}
     >
-      {isUser ? <UserGlyph /> : <SparkMark />}
+      {isUser ? (
+        <UserGlyph />
+      ) : (
+        <div className="w-8 h-8 md:w-9 md:h-9 rounded-full overflow-hidden relative">
+          <Image
+            src="/feranmi.png"
+            alt="Oluwaferanmi Adeniji"
+            fill
+            unoptimized
+            sizes="260px"
+            priority
+            className="object-cover"
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -414,14 +448,15 @@ function EmptyState({ onPick }: { onPick: (q: string) => void }) {
           className="text-[14px] mt-3 text-center max-w-md mx-auto leading-[1.65]"
           style={{ color: "var(--ink-3)" }}
         >
-          grounded in feranmi&apos;s actual work, experience, and opinions. no filler.
+          grounded in feranmi&apos;s actual work, experience, and opinions. no
+          filler.
         </motion.p>
       </div>
 
       <div>
         <p
-          className="text-[10px] tracking-[0.25em] uppercase mb-3 text-center"
-          style={{ color: "var(--ink-4)" }}
+          className="text-[12px] tracking-[0.25em] uppercase mb-3 text-center font-medium"
+          style={{ color: "var(--ink)" }}
         >
           try one of these
         </p>
@@ -472,7 +507,12 @@ function UserGlyph() {
   return (
     <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
       <circle cx="7" cy="4.5" r="2.2" stroke="currentColor" strokeWidth="1.3" />
-      <path d="M2.5 12.5c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+      <path
+        d="M2.5 12.5c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -480,7 +520,13 @@ function UserGlyph() {
 function SendArrow() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path d="M8 14V2M8 2L3 7M8 2l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M8 14V2M8 2L3 7M8 2l5 5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -488,7 +534,13 @@ function SendArrow() {
 function RefreshIcon() {
   return (
     <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-      <path d="M1.5 6a4.5 4.5 0 018-2.8M10.5 6a4.5 4.5 0 01-8 2.8M9.5 1v3h-3M2.5 11V8h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M1.5 6a4.5 4.5 0 018-2.8M10.5 6a4.5 4.5 0 01-8 2.8M9.5 1v3h-3M2.5 11V8h3"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

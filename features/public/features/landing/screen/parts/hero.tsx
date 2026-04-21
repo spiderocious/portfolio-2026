@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "motion/react";
 import { IsoGraphic } from "./iso-graphic";
+import Image from "next/image";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -20,7 +21,7 @@ const BADGES = [
 
 export function Hero() {
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-8 lg:gap-12 px-6 md:px-10 lg:px-12 pt-16 pb-20 lg:pt-20 lg:pb-28">
+    <section className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-8 lg:gap-12 px-6 md:px-10 lg:px-12 pb-20 lg:pb-28 pt-6">
       {/* Left — text */}
       <motion.div
         variants={containerVariants}
@@ -31,8 +32,17 @@ export function Hero() {
         {/* Name row */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap items-center gap-x-5 gap-y-3 mb-4"
+          className="flex flex-wrap items-center gap-x-5 gap-y-3 "
         >
+          <Image
+            src="/feranmi.png"
+            alt="Oluwaferanmi Adeniji"
+            className="rounded-xl"
+            height={96}
+            width={96}
+            unoptimized
+            priority
+          />
           <h1
             className="text-[clamp(2.25rem,5vw,3rem)] font-semibold tracking-tight"
             style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}
@@ -56,11 +66,18 @@ export function Hero() {
           fintech, ecommerce, software as a service, delivery, humanities,
           health and developer tools. I care deeply about performance, clean
           architecture, and building products that genuinely help people.
-          Currently at <a href="https://moniepoint.com" target="_blank" rel="noopener noreferrer"><Bold>Moniepoint</Bold></a>, where I contribute to frontend
-          systems serving 10M+ users and processing $1B+ annually. I also
-          maintain open-source libraries like <Bold>Connectic</Bold> and{" "}
-          <Bold>Monie Utils</Bold> because building useful things is what gets
-          me out of bed.
+          Currently at{" "}
+          <a
+            href="https://moniepoint.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Bold>Moniepoint</Bold>
+          </a>
+          , where I contribute to frontend systems serving 10M+ users and
+          processing $1B+ annually. I also maintain open-source libraries like{" "}
+          <Bold>Connectic</Bold> and <Bold>Monie Utils</Bold> because building
+          useful things is what gets me out of bed.
         </motion.p>
 
         {/* Play note */}
