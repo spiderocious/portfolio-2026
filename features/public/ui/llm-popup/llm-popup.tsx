@@ -117,7 +117,7 @@ export function LlmPopup({
         {open && (
           <motion.div
             key="llm-overlay"
-            initial={{ opacity: 0 }}
+            initial={{ opacity: defaultOpen ? 1 : 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
@@ -186,7 +186,7 @@ export function LlmPopup({
                 )}
                 <button
                   type="button"
-                  onClick={() => setOpen(false)}
+                  onClick={close}
                   aria-label="Close"
                   className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors"
                   style={{
