@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
   const limit = rateLimit(ip);
   if (!limit.ok) {
     return NextResponse.json(
-      { error: "slow down, come back in a bit", retry_in: limit.retry_in },
+      { error: "slow down, come back in a bit", retry_in: limit.retry_in, limit: LIMIT },
       { status: 429 }
     );
   }

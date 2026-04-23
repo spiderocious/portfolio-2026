@@ -159,7 +159,14 @@ export function useLlmChat() {
           let msg = "something went wrong";
           try {
             const body = await res.json();
-            msg = body.error ?? msg;
+            if (res.status === 429 && typeof body.retry_in === "number") {
+              const secs = body.retry_in as number;
+              const mins = Math.ceil(secs / 60);
+              const wait = mins >= 2 ? `${mins} minutes` : `${secs} seconds`;
+              msg = `you've hit your limit of ${body?.limit ?? "10"} messages per window — you can try again in ${wait}, or reach out to me personally at devferanmi@gmail.com`;
+            } else {
+              msg = body.error ?? msg;
+            }
           } catch {}
           setError(msg);
           setMessages((prev) => prev.filter((m) => m.id !== placeholder.id));

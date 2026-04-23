@@ -19,8 +19,19 @@ const STARTER_SUGGESTIONS = [
   "is he open to work?",
 ];
 
-export function LlmPopup({ defaultOpen = false }: { defaultOpen?: boolean }) {
+export function LlmPopup({
+  defaultOpen = false,
+  onClose,
+}: {
+  defaultOpen?: boolean;
+  onClose?: () => void;
+}) {
   const [open, setOpen] = useState(defaultOpen);
+
+  const close = useCallback(() => {
+    setOpen(false);
+    onClose?.();
+  }, [onClose]);
   const { messages, streaming, error, suggestions, send, reset } = useLlmChat();
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -66,7 +77,7 @@ export function LlmPopup({ defaultOpen = false }: { defaultOpen?: boolean }) {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = prev;
@@ -163,7 +174,7 @@ export function LlmPopup({ defaultOpen = false }: { defaultOpen?: boolean }) {
                   <button
                     type="button"
                     onClick={reset}
-                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] tracking-[0.15em] uppercase cursor-pointer transition-colors hover:text-[var(--ink)]"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] tracking-[0.15em] uppercase cursor-pointer transition-colors hover:text-[var(--ink)]"
                     style={{
                       color: "var(--ink-3)",
                       border: "1px solid var(--border-soft)",
@@ -258,15 +269,23 @@ export function LlmPopup({ defaultOpen = false }: { defaultOpen?: boolean }) {
             </div>
 
             {error && (
-              <p
-                className="mx-auto w-full max-w-[760px] px-4 md:px-6 py-2 text-[12px]"
-                style={{
-                  color: "#f87171",
-                  background: "var(--bg)",
-                }}
+              <div
+                className="mx-auto w-full max-w-[760px] px-4 md:px-6 py-3"
+                style={{ background: "var(--bg)" }}
               >
-                {error}
-              </p>
+                <div
+                  className="flex items-start gap-3 px-4 py-3 text-[12.5px] leading-[1.6]"
+                  style={{
+                    background: "rgba(248,113,113,0.07)",
+                    border: "1px solid rgba(248,113,113,0.3)",
+                    borderRadius: 10,
+                    color: "#f87171",
+                  }}
+                >
+                  <span className="shrink-0 mt-[1px] text-[14px]">⚠</span>
+                  <span style={{ fontFamily: "var(--font-mono)" }}>{error}</span>
+                </div>
+              </div>
             )}
 
             {/* Input */}
