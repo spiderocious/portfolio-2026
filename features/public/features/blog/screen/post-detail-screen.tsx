@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import DOMPurify from "isomorphic-dompurify";
+import hljs from "highlight.js";
 import { getPostBySlug } from "@/lib/services/hashnode";
 import { PageShell } from "@/features/public/ui/page-shell/page-shell";
 import { BackLink } from "@/features/public/ui/back-link/back-link";
@@ -17,9 +18,32 @@ export async function PostDetailScreen({ slug }: { slug: string }) {
   }
   if (!post) notFound();
 
-  const sanitized = DOMPurify.sanitize(post.content_html, {
+  // Sanitize first, then apply syntax highlighting via regex replacement on the HTML string
+  const clean = DOMPurify.sanitize(post.content_html, {
     ADD_ATTR: ["target", "rel", "loading"],
   });
+
+  // Replace <pre><code class="language-xxx">...</code></pre> blocks with highlighted versions
+  const sanitized = clean.replace(
+    /<pre><code([^>]*)>([\s\S]*?)<\/code><\/pre>/g,
+    (_match, attrs: string, raw: string) => {
+      // Decode HTML entities so hljs sees plain text
+      const text = raw
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&amp;/g, "&")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'");
+      const langMatch = attrs.match(/language-([a-zA-Z0-9_+-]+)/);
+      const lang = langMatch?.[1];
+      const result =
+        lang && hljs.getLanguage(lang)
+          ? hljs.highlight(text, { language: lang })
+          : hljs.highlightAuto(text);
+      const detectedLang = result.language ?? lang ?? "";
+      return `<pre><code class="hljs language-${detectedLang}"${attrs}>${result.value}</code></pre>`;
+    }
+  );
   const date = new Date(post.published_at).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -30,7 +54,7 @@ export async function PostDetailScreen({ slug }: { slug: string }) {
     <PageShell>
       <BlogReadTracker slug={post.slug} title={post.title} />
 
-      <article className="px-6 md:px-10 lg:px-12 pt-10 pb-20">
+      <article className="px-5 md:px-8 lg:px-10 pt-10 pb-24">
         <div className="mb-8">
           <BackLink href="/blog" label="all posts" />
         </div>
@@ -38,8 +62,8 @@ export async function PostDetailScreen({ slug }: { slug: string }) {
         {/* Header */}
         <header className="max-w-[720px] mx-auto text-center mb-10">
           <div
-            className="flex items-center justify-center gap-3 text-[11px] tracking-[0.2em] uppercase mb-5"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ink-4)" }}
+            className="flex items-center justify-center gap-3 text-[11px] tracking-[0.2em] uppercase mb-5 font-bold"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}
           >
             <span>{date}</span>
             <span>·</span>
@@ -58,11 +82,11 @@ export async function PostDetailScreen({ slug }: { slug: string }) {
               {post.tags.map((t) => (
                 <span
                   key={t.slug}
-                  className="px-2 py-0.5 text-[10px] tracking-wide"
+                  className="px-2 py-0.5 text-[10px] tracking-wide font-semibold"
                   style={{
                     fontFamily: "var(--font-mono)",
-                    color: "var(--ink-3)",
-                    border: "1px solid var(--border)",
+                    color: "#ffffff",
+                    border: "1px solid #ffffff",
                     borderRadius: 2,
                   }}
                 >
@@ -91,7 +115,7 @@ export async function PostDetailScreen({ slug }: { slug: string }) {
         )}
 
         {/* Body */}
-        <div className="max-w-[680px] mx-auto hashnode-body">
+        <div className="max-w-[720px] mx-auto hashnode-body">
           <div dangerouslySetInnerHTML={{ __html: sanitized }} />
         </div>
       </article>
